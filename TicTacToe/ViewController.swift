@@ -18,6 +18,11 @@ class ViewController: UIViewController {
         
         let gameView = GameView(frame: CGRectMake(20, 50, 300, 300))
         self.view.addSubview(gameView)
+        
+        let gb = GameBoard(size: DEFAULT_GAMEBOARD_SIZE)
+        gb.setSquareState(GameSquarePos(row: 1, col: 1), state: SquareState.O)
+        gb.setSquareState(GameSquarePos(row: 2, col: 1), state: SquareState.X)
+        gameView.gameboard = gb
     }
 
     override func didReceiveMemoryWarning() {

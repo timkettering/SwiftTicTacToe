@@ -10,14 +10,21 @@ import UIKit
 
 class GameView: UIView {
     
-    let ONE_THIRD:CGFloat = 0.333
-    let ONE_FOURTH:CGFloat = 0.25
-    
     var squareViews = [UIView]()
+    var gridDrawn = false
+    var gameboard: GameBoard? {
+        didSet {
+            self.drawGameboard()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
+        
+        // tap recognizer
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("userDidTapGameView:"))
+        self.addGestureRecognizer(tapRecognizer)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -26,7 +33,6 @@ class GameView: UIView {
     
     override func drawRect(rect: CGRect) {
         self.drawGameGrid()
-        self.drawGameSquare(GameSquarePos(row: 0, col: 0), state: SquareState.X)
     }
     
     func getGridIncrement(length: CGFloat, parts: Int, multiplier: Int) -> CGFloat {
@@ -35,7 +41,29 @@ class GameView: UIView {
         return val * length
     }
     
+    func userDidTapGameView(touch: UIEvent) {
+        println("Received touch: \(touch)")
+    }
+    
+    // MARK: gameboard drawing functions
+    func drawGameboard() {
+        
+        if let gb = gameboard {
+            
+            for var i = 0; i < gb.squares.count; i++ {
+                
+                var row = i / gb.boardSize
+                var col = i % gb.boardSize
+                drawGameSquare(GameSquarePos(row: row, col: col), state: gb.squares[i])
+            }
+        }
+    }
+    
     func drawGameGrid() {
+        
+        if gridDrawn {
+            return
+        }
         
         let rectHeight = CGRectGetHeight(self.frame)
         let rectWidth = CGRectGetWidth(self.frame)
@@ -75,6 +103,8 @@ class GameView: UIView {
         line4.lineWidth = 10
         UIColor.whiteColor().setStroke()
         line4.stroke()
+        
+        gridDrawn = true
     }
     
 
@@ -82,13 +112,26 @@ class GameView: UIView {
     func drawGameSquare(pos: GameSquarePos, state: SquareState) {
         
         let squareView = UILabel(frame: CGRectMake(0, 0, 50, 50))
-        squareView.backgroundColor = UIColor.yellowColor()
-        squareView.text = "X"
+        var squareValue = ""
+        
+        switch state {
+        case .X:
+            squareValue = "X"
+        case .O:
+            squareValue = "O"
+        default:
+            squareValue = ""
+        }
+        
+        squareView.text = squareValue
+        squareView.font = UIFont.systemFontOfSize(30.0)
+        squareView.textColor = UIColor.whiteColor()
+        squareView.sizeToFit()
         
         let rectHeight = CGRectGetHeight(self.frame)
         let rectWidth = CGRectGetWidth(self.frame)
         
-        squareView.center = CGPointMake(getGridIncrement(rectHeight, parts: 4, multiplier: pos.row + 1), getGridIncrement(rectWidth, parts: 4, multiplier: pos.col + 1))
+        squareView.center = CGPointMake(getGridIncrement(rectHeight, parts: 6, multiplier: (pos.row * 2) + 1), getGridIncrement(rectWidth, parts: 6, multiplier: (pos.col * 2) + 1))
         self.addSubview(squareView)
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-let GAMEBOARD_SIZE: Int = 3
+let DEFAULT_GAMEBOARD_SIZE: Int = 3
 
 enum SquareState {
     case X
@@ -23,7 +23,14 @@ struct GameSquarePos {
 
 class GameBoard {
     
-    var squares = [SquareState](count: GAMEBOARD_SIZE * GAMEBOARD_SIZE, repeatedValue: SquareState.None)
+    var boardSize: Int
+    var squares: [SquareState]
+    
+    init(size: Int) {
+        
+        boardSize = size
+        squares = [SquareState](count: boardSize * boardSize, repeatedValue: SquareState.None)
+    }
     
     func isEmpty() -> Bool {
         for sq in squares {
@@ -36,17 +43,17 @@ class GameBoard {
     
     func setSquareState(pos: GameSquarePos, state: SquareState) {
         
-        let loc = self.getArrayPosForGameSquarePos(pos, boardSize: GAMEBOARD_SIZE)
+        let loc = self.getArrayPosForGameSquarePos(pos)
         squares[loc] = state
     }
     
     func getSquareState(pos: GameSquarePos) -> SquareState {
         
-        let loc = self.getArrayPosForGameSquarePos(pos, boardSize: GAMEBOARD_SIZE)
+        let loc = self.getArrayPosForGameSquarePos(pos)
         return squares[loc]
     }
     
-    func getArrayPosForGameSquarePos(pos: GameSquarePos, boardSize: Int) -> Int {
+    func getArrayPosForGameSquarePos(pos: GameSquarePos) -> Int {
         return (pos.col * boardSize) + pos.row
     }
 }
