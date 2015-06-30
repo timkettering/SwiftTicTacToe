@@ -12,9 +12,9 @@ class GameView: UIView {
     
     var squareViews = [UIView]()
     var gridDrawn = false
-    var gameboard: GameBoard? {
+    var gameState: GameState? {
         didSet {
-            self.drawGameboard()
+            self.drawGameState()
         }
     }
     
@@ -46,15 +46,14 @@ class GameView: UIView {
     }
     
     // MARK: gameboard drawing functions
-    func drawGameboard() {
+    func drawGameState() {
         
-        if let gb = gameboard {
+        if let gs = gameState {
             
-            for var i = 0; i < gb.squares.count; i++ {
-                
-                var row = i / gb.boardSize
-                var col = i % gb.boardSize
-                drawGameSquare(GameSquarePos(row: row, col: col), state: gb.squares[i])
+            for var i = 0; i < DEFAULT_GAMEBOARD_SQUARES; i++ {
+                if let player = gs.squares[i] {
+                    drawGameSquare(GameSquarePos.getGameSquareForArrayPos(i), asPlayer: player)
+                }
             }
         }
     }
@@ -109,29 +108,39 @@ class GameView: UIView {
     
 
     
-    func drawGameSquare(pos: GameSquarePos, state: SquareState) {
+    func drawGameSquare(pos: GameSquarePos, asPlayer player: Player) {
         
-        let squareView = UILabel(frame: CGRectMake(0, 0, 50, 50))
-        var squareValue = ""
+        if let gameState = gameState {
         
-        switch state {
-        case .X:
-            squareValue = "X"
-        case .O:
-            squareValue = "O"
-        default:
-            squareValue = ""
+            let squareView = UILabel(frame: CGRectMake(0, 0, 50, 50))
+            var squareValue = ""
+            
+            switch player {
+            case .X:
+                squareValue = "X"
+            case .O:
+                squareValue = "O"
+            default:
+                squareValue = ""
+            }
+            
+            squareView.text = squareValue
+            squareView.font = UIFont.systemFontOfSize(30.0)
+            squareView.textColor = UIColor.whiteColor()
+            squareView.sizeToFit()
+            squareView.setTranslatesAutoresizingMaskIntoConstraints(false)
+            
+            let widthMultiplier:CGFloat = CGFloat((pos.col * 2) + 1) / CGFloat(DEFAULT_GAMEBOARD_SIZE * 2)
+            let heightMultiplier:CGFloat = CGFloat((pos.row * 2) + 1) / CGFloat(DEFAULT_GAMEBOARD_SIZE * 2)
+
+            self.addSubview(squareView)
+            
+            // set constraints
+            let widthCons = NSLayoutConstraint(item: squareView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Right, multiplier: widthMultiplier, constant: 0.0)
+            let heightCons = NSLayoutConstraint(item: squareView, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Bottom, multiplier: heightMultiplier, constant: 0.0)
+            
+            self.addConstraint(widthCons)
+            self.addConstraint(heightCons)
         }
-        
-        squareView.text = squareValue
-        squareView.font = UIFont.systemFontOfSize(30.0)
-        squareView.textColor = UIColor.whiteColor()
-        squareView.sizeToFit()
-        
-        let rectHeight = CGRectGetHeight(self.frame)
-        let rectWidth = CGRectGetWidth(self.frame)
-        
-        squareView.center = CGPointMake(getGridIncrement(rectHeight, parts: 6, multiplier: (pos.row * 2) + 1), getGridIncrement(rectWidth, parts: 6, multiplier: (pos.col * 2) + 1))
-        self.addSubview(squareView)
     }
 }

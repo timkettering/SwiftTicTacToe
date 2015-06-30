@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TicTacToe/GameView.swift"
-            timestampString = "456362897.177953"
+            filePath = "TicTacToe/GameState.swift"
+            timestampString = "457305222.969445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "21"
             endingLineNumber = "21"
-            landmarkName = "init(frame:)"
+            landmarkName = "getOpponent()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TicTacToe/GameView.swift"
-            timestampString = "456362958.419228"
+            filePath = "TicTacToe/T3GameEngine.swift"
+            timestampString = "457322489.378778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "getGridIncrement(_:parts:multiplier:)"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "isValidGameState(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TicTacToe/GameView.swift"
-            timestampString = "456424864.41101"
+            filePath = "TicTacToe/T3GameEngine.swift"
+            timestampString = "457322489.378778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "drawGameboard()"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "minMaxBoard(_:maxForPlayer:currentTurnPlayer:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TicTacToe/GameView.swift"
-            timestampString = "456424940.263933"
+            filePath = "TicTacToe/T3GameEngine.swift"
+            timestampString = "457322489.378778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "drawGameboard()"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "setSquare(_:pos:asPlayer:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
