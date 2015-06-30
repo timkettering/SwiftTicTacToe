@@ -39,24 +39,44 @@ struct GameSquarePos {
 }
 
 struct GameState: Printable {
-    var squares = [Player?](count: DEFAULT_GAMEBOARD_SQUARES, repeatedValue: nil)
-    var unplayedPositions: [GameSquarePos] {
-        get {
-            var unplayedPositions = [GameSquarePos]()
-            for i in 0 ..< DEFAULT_GAMEBOARD_SQUARES {
-                if squares[i] == nil {
-                    unplayedPositions.append(GameSquarePos.getGameSquareForArrayPos(i))
-                }
+    
+    let squares: [Player?]
+    var unplayedPositions = [GameSquarePos]()
+    var xPositions = [GameSquarePos]()
+    var oPositions = [GameSquarePos]()
+    var totalMoves = 0
+    
+    init() {
+        squares = [Player?](count: DEFAULT_GAMEBOARD_SQUARES, repeatedValue: nil)
+        unplayedPositions = getUnplayedPositions()
+        xPositions = getPlayerPositions(Player.X)
+        oPositions = getPlayerPositions(Player.O)
+        totalMoves = xPositions.count + oPositions.count
+    }
+    
+    init(squares sq: [Player?]) {
+        squares = sq
+        unplayedPositions = getUnplayedPositions()
+        xPositions = getPlayerPositions(Player.X)
+        oPositions = getPlayerPositions(Player.O)
+        totalMoves = xPositions.count + oPositions.count
+    }
+    
+    private func getUnplayedPositions() -> [GameSquarePos] {
+        var unplayedPositions = [GameSquarePos]()
+        for i in 0 ..< DEFAULT_GAMEBOARD_SQUARES {
+            if squares[i] == nil {
+                unplayedPositions.append(GameSquarePos.getGameSquareForArrayPos(i))
             }
-            return unplayedPositions
         }
+        return unplayedPositions
     }
     
     func getPlayerForPosition(gameSquarePos: GameSquarePos) -> Player? {
         return squares[GameSquarePos.getArrayPosForGameSquarePos(gameSquarePos)]
     }
     
-    func getPlayerPositions(player: Player) -> [GameSquarePos] {
+    private func getPlayerPositions(player: Player) -> [GameSquarePos] {
         var playerPositions = [GameSquarePos]()
         for i in 0 ..< DEFAULT_GAMEBOARD_SQUARES {
             if squares[i] == player {

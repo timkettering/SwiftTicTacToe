@@ -26,8 +26,10 @@ struct PlayResult {
 */
 
 /**
-    For this technical excercise, I've done the game engine in a stateless form (all static methods).  This
-    leads to some inefficiencies, as it's constantly re-checking board state, but it helps simplify the 
+    For this technical excercise, I've done the game engine function in a stateless form.  The class is instanced
+    so that the winning lines can be predetermined at class initalization, and re-used for all checks.  
+
+    This leads to some inefficiencies, as it's constantly re-checking board state, but it helps simplify the
     programming model.  (And given the small data structure, the overhead is probably minimal).
 
     Advantages of stateless form is that gamestate can be passed on to any game engine instance without care
@@ -36,13 +38,17 @@ struct PlayResult {
 */
 class T3GameEngine {
     
-    let defaultStartGameSquarePos = GameSquarePos(row: 1, col: 1);
+    var winningLines = [[GameSquarePos]]()
+    
+    init () {
+        initAllWinningLines()
+    }
     
     /*
         Returns a Gameboard object with the next move populated, or nil
         if the board is in an invalid state
     */
-    static func playNextMove(gameState: GameState, asPlayer player: Player) -> PlayResult {
+    func playNextMove(gameState: GameState, asPlayer player: Player) -> PlayResult {
         
         if(!canPlayerPlayNext(gameState, player: player)) {
             // crash hard, we wont deal w/ edge cases in this excercise
@@ -59,18 +65,32 @@ class T3GameEngine {
         }
         
         // handle case if board is unplayed
-        if gameState.unplayedPositions.count == DEFAULT_GAMEBOARD_SQUARES {
+        if gameState.totalMoves == 0 {
             // pick a random place to start
             let randStart = Int(arc4random_uniform(UInt32(DEFAULT_GAMEBOARD_SQUARES)))
             let newGameState = setSquare(gameState, pos: GameSquarePos.getGameSquareForArrayPos(randStart), asPlayer: player)
             // first move can never win game
             return PlayResult(gameState: newGameState, gameComplete: false, winningPlayer: nil)
+        } else if gameState.totalMoves == 1 {
+            // further optimize the second turn by selecting either center or one of the four corners, 
+            // depending on the first player's move.  this will reduce the amount of minimaxing we have to do
+            
+            // check if first player grabbed center
+            if let firstMove = gameState.getPlayerForPosition(GameSquarePos(row: 1, col: 1)) {
+                // take a corner 
+                let newGameState = setSquare(gameState, pos: GameSquarePos(row: 2, col: 2), asPlayer: player)
+                return PlayResult(gameState: newGameState, gameComplete: false, winningPlayer: nil)
+            } else {
+                // grab center
+                let newGameState = setSquare(gameState, pos: GameSquarePos(row: 1, col: 1), asPlayer: player)
+                return PlayResult(gameState: newGameState, gameComplete: false, winningPlayer: nil)
+            }
         } else {
-            return minMaxBoard(gameState, maxForPlayer: player, currentTurnPlayer: player).0
+            return miniMaxBoard(gameState, maxForPlayer: player, currentTurnPlayer: player).0
         }
     }
     
-    static func minMaxBoard(gameState: GameState, maxForPlayer: Player, currentTurnPlayer: Player) -> (PlayResult, Int) {
+    func miniMaxBoard(gameState: GameState, maxForPlayer: Player, currentTurnPlayer: Player) -> (PlayResult, Int) {
         
         if isGameFinished(gameState) {
             if let winner = getWinner(gameState) {
@@ -85,18 +105,16 @@ class T3GameEngine {
         var possibleStates = [PlayResult, Int]()
         
         // find highest score out of all remaining moves
-//        println("Processing unplayed positions, total remaining: \(gameState.unplayedPositions.count)")
         for unplayed in gameState.unplayedPositions {
             let gs = setSquare(gameState, pos: unplayed, asPlayer: currentTurnPlayer)
             availableMoves.append(gs)
-            possibleStates.append(minMaxBoard(gs, maxForPlayer: maxForPlayer, currentTurnPlayer: currentTurnPlayer.getOpponent()))
+            possibleStates.append(miniMaxBoard(gs, maxForPlayer: maxForPlayer, currentTurnPlayer: currentTurnPlayer.getOpponent()))
         }
         
         // if current player is max player, return MAX value, else return MIN value
         // seed with initial value
         var minMaxIndex = 0
         
-//        println("checking possible states:", possibleStates.count)
         // loop through rest of collection
         for i in 0 ..< possibleStates.count {
             
@@ -114,7 +132,7 @@ class T3GameEngine {
         return (PlayResult(gameState: availableMoves[minMaxIndex], gameComplete: false, winningPlayer: nil), possibleStates[minMaxIndex].1)
     }
     
-    static func scoreForPlayer(gameState: GameState, asPlayer: Player) -> Int {
+    func scoreForPlayer(gameState: GameState, asPlayer: Player) -> Int {
         
         if let winner = getWinner(gameState) {
             if winner.0 == asPlayer {
@@ -132,20 +150,19 @@ class T3GameEngine {
     Attempts to play a move as a given player.  Will return `GameState` if the move
     is legal and the game is not in an ended state.  Nil otherwise.
     */
-    static func setSquare(gameState: GameState, pos: GameSquarePos, asPlayer player: Player) -> GameState {
+    func setSquare(gameState: GameState, pos: GameSquarePos, asPlayer player: Player) -> GameState {
         
         var newSquares = gameState.squares
         newSquares[GameSquarePos.getArrayPosForGameSquarePos(pos)] = player
-        var gs = GameState()
-        gs.squares = newSquares
+        var gs = GameState(squares: newSquares)
         return gs
     }
     
-    static func isValidGameState(gameState: GameState) -> Bool {
+    func isValidGameState(gameState: GameState) -> Bool {
         
         let unplayed = gameState.unplayedPositions.count
-        let xCount = gameState.getPlayerPositions(Player.X).count
-        let oCount = gameState.getPlayerPositions(Player.O).count
+        let xCount = gameState.xPositions.count
+        let oCount = gameState.oPositions.count
         
         // if the basic math adds up, and that both players have the same amount of moves (or +1)
         if unplayed + xCount + oCount == (DEFAULT_GAMEBOARD_SQUARES) {
@@ -159,10 +176,10 @@ class T3GameEngine {
         }
     }
     
-    static func canPlayerPlayNext(gameState: GameState, player: Player) -> Bool {
+    func canPlayerPlayNext(gameState: GameState, player: Player) -> Bool {
         
-        var xCount = gameState.getPlayerPositions(Player.X).count
-        var oCount = gameState.getPlayerPositions(Player.O).count
+        var xCount = gameState.xPositions.count
+        var oCount = gameState.oPositions.count
         
         // increment based on
         if player == Player.X {
@@ -178,7 +195,7 @@ class T3GameEngine {
         }
     }
     
-    static func isGameFinished(gameState: GameState) -> Bool {
+    func isGameFinished(gameState: GameState) -> Bool {
         
         // game is finished if totalMoves == totalSquares, or
         // there is a winner
@@ -189,10 +206,10 @@ class T3GameEngine {
         }
     }
     
-    static func getWinner(gameState: GameState) -> (Player, [GameSquarePos])? {
+    func getWinner(gameState: GameState) -> (Player, [GameSquarePos])? {
         
         // check for win on all legal lines
-        for line in self.getAllLegalLines() {
+        for line in winningLines {
             if let winner = self.winnerOnGivenLine(gameState, line: line) {
                 return winner
             }
@@ -202,7 +219,7 @@ class T3GameEngine {
     }
     
     // private/internal functions
-    static private func winnerOnGivenLine(gameState: GameState, line: [GameSquarePos]) -> (Player, [GameSquarePos])? {
+    private func winnerOnGivenLine(gameState: GameState, line: [GameSquarePos]) -> (Player, [GameSquarePos])? {
         
         var lastPlayer: Player?
         for pos in line {
@@ -222,17 +239,11 @@ class T3GameEngine {
         return (lastPlayer!, line)
     }
     
-    static private func getAllLegalLines() -> [[GameSquarePos]] {
-        
-        var legalLines = self.getHorizLineArrays() + self.getVertLineArrays() + self.getDiagonalLineArrays()
-        // quick sanity check (do something more severe if production app)
-        if legalLines.count != LEGAL_WINNING_LINES {
-            println("DID NOT FIND EXPECTED AMOUNT OF LEGAL LINES FOR BOARD")
-        }
-        return legalLines
+    private func initAllWinningLines() {
+        winningLines = getHorizLineArrays() + getVertLineArrays() + getDiagonalLineArrays()
     }
     
-    static private func getHorizLineArrays() -> [[GameSquarePos]] {
+    private func getHorizLineArrays() -> [[GameSquarePos]] {
         
         var arrays = [[GameSquarePos]]()
         
@@ -247,7 +258,7 @@ class T3GameEngine {
     }
     
     
-    static private func getVertLineArrays() -> [[GameSquarePos]] {
+    private func getVertLineArrays() -> [[GameSquarePos]] {
         
         var arrays = [[GameSquarePos]]()
         
@@ -261,7 +272,7 @@ class T3GameEngine {
         return arrays
     }
     
-    static private func getDiagonalLineArrays() -> [[GameSquarePos]] {
+    private func getDiagonalLineArrays() -> [[GameSquarePos]] {
         
         var arrays = [[GameSquarePos]]()
         

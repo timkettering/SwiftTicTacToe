@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicTacToe/T3GameEngine.swift"
-            timestampString = "457322489.378778"
+            timestampString = "457331718.50803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "isValidGameState(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicTacToe/T3GameEngine.swift"
-            timestampString = "457322489.378778"
+            timestampString = "457331718.50803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "minMaxBoard(_:maxForPlayer:currentTurnPlayer:)"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "miniMaxBoard(_:maxForPlayer:currentTurnPlayer:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicTacToe/T3GameEngine.swift"
-            timestampString = "457322489.378778"
+            timestampString = "457331718.50803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "setSquare(_:pos:asPlayer:)"
             landmarkType = "5">
          </BreakpointContent>
