@@ -26,7 +26,7 @@ class TicTacToeTests: XCTestCase {
     func testPlayerEnum() {
         
         XCTAssertEqual(Player.O, Player.X.getOpponent(), "Opponent of Player O should be X.")
-        XCTAssertEqual(Player.X, Player.O.getOpponent(), "Opponent of Player O should be X.")
+        XCTAssertEqual(Player.X, Player.O.getOpponent(), "Opponent of Player X should be O.")
     }
     
     func testGameState() {
@@ -73,7 +73,28 @@ class TicTacToeTests: XCTestCase {
         }
     }
     
-    func testMinmaxScores() {
+    func testPlayManyGames2() {
+        
+        // play game with game engine as both players.  if functionality is correct,
+        // all games should always end in a draw.  value is set to 10 to allow for quicker
+        // test run but a large number should be tested
+        for i in 0 ..< 10 {
+            var gs = GameState()
+            var player = Player.O
+            while true {
+                let result = gameEngine.playNextMove(gs, asPlayer: player)
+                if result.gameComplete {
+                    XCTAssertTrue(result.winningPlayer == nil, "A player has won the game! Should not happen.")
+                    break
+                } else {
+                    gs = result.gameState!
+                    player = player.getOpponent()
+                }
+            }
+        }
+    }
+    
+    func testFinishedState() {
     
         var gs = GameState()
         gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.X)
@@ -98,11 +119,114 @@ class TicTacToeTests: XCTestCase {
         XCTAssertEqual(-10, gameEngine.scoreForPlayer(gs, asPlayer: Player.O), "Player X score should be -10")
     }
     
-    func testMinMaxPerformance() {
+    func testMiniMaxScenario1() {
         
         var gs = GameState()
         gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.X)
-        
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 1, col: 2), asPlayer: Player.O)
+        XCTAssertEqual(gs.totalMoves, 3, "Incorrect total moves reported.")
+
+        // Player O needs to block potential winning move by X
         var playResult = gameEngine.playNextMove(gs, asPlayer: Player.O)
+        XCTAssertTrue(playResult.gameState?.getPlayerForPosition(GameSquarePos(row: 0, col: 1)) == Player.O, "Player O did not block winning move.")
+    }
+    
+    func testMiniMaxScenario2() {
+        
+        var gs = GameState()
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 1, col: 2), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 2), asPlayer: Player.O)
+        XCTAssertEqual(gs.totalMoves, 4, "Incorrect total moves reported.")
+        
+        var playResult = gameEngine.playNextMove(gs, asPlayer: Player.X)
+        XCTAssertTrue(playResult.gameState?.getPlayerForPosition(GameSquarePos(row: 0, col: 1)) == Player.X, "Player X did not take winning move.")
+    }
+    
+    func testMiniMaxScenario3() {
+        
+        var gs = GameState()
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 0), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 2), asPlayer: Player.O)
+        XCTAssertEqual(gs.totalMoves, 4, "Incorrect total moves reported.")
+        var playResult = gameEngine.playNextMove(gs, asPlayer: Player.X)
+        XCTAssertTrue(playResult.gameState?.getPlayerForPosition(GameSquarePos(row: 0, col: 1)) == Player.X, "Player X did not take winning move.")
+    }
+    
+    func testMiniMaxScenario4() {
+        
+        var gs = GameState()
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 0), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 2), asPlayer: Player.O)
+        XCTAssertEqual(gs.totalMoves, 4, "Incorrect total moves reported.")
+        var playResult = gameEngine.playNextMove(gs, asPlayer: Player.O)
+        XCTAssertTrue(playResult.gameState?.getPlayerForPosition(GameSquarePos(row: 2, col: 1)) == Player.O, "Player O did not take winning move.")
+    }
+    
+    /**
+    Learned something very interesting about minimax - you can give it a theoretical gameboard state
+    where the player can immediately move to claim victory, but due to how the algo works, the
+    algo may still select a move that wont result in an immediate win, but *will* eventually win a few moves later.
+    
+    This one stumped me for so long!  Improved the algo to greedily grab the winner instead of possibly going long-term.
+    */
+    func testLongTermMiniMaxScenario5() {
+        
+        var gs = GameState()
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 1), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 1), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 1, col: 2), asPlayer: Player.O)
+        XCTAssertEqual(gs.totalMoves, 5, "Incorrect total moves reported.")
+        var playResult = gameEngine.playNextMove(gs, asPlayer: Player.O)
+        XCTAssertTrue(playResult.gameState?.getPlayerForPosition(GameSquarePos(row: 2, col: 2)) == Player.O, "Player O did not take winning move.")
+    }
+    
+    func testMiniMaxScenario6() {
+        
+        var gs = GameState()
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 1), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 1), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 1, col: 2), asPlayer: Player.X)
+        XCTAssertEqual(gs.totalMoves, 5, "Incorrect total moves reported.")
+        var playResult = gameEngine.playNextMove(gs, asPlayer: Player.X)
+        XCTAssertTrue(playResult.gameState?.getPlayerForPosition(GameSquarePos(row: 2, col: 2)) == Player.X, "Player X did not take winning move.")
+    }
+    
+    func testEndGameStatesXWins() {
+        
+        var gs = GameState()
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 1, col: 0), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 1, col: 1), asPlayer: Player.O)
+        XCTAssertEqual(gs.totalMoves, 4, "Incorrect total moves reported.")
+        
+        var playResult = gameEngine.playNextMove(gs, asPlayer: Player.X)
+        XCTAssertTrue(playResult.winningPlayer == Player.X, "Player X should be the winner.")
+        XCTAssertTrue(playResult.gameComplete, "Game should be marked complete.")
+    }
+    
+    func testEndGameStatesOWins() {
+        
+        var gs = GameState()
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 1), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 1, col: 2), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 1), asPlayer: Player.X)
+        XCTAssertEqual(gs.totalMoves, 5, "Incorrect total moves reported.")
+        var playResult = gameEngine.playNextMove(gs, asPlayer: Player.O)
+        XCTAssertTrue(playResult.winningPlayer == Player.O, "Player O should be the winner.")
+        XCTAssertTrue(playResult.gameComplete, "Game should be marked complete.")
     }
 }

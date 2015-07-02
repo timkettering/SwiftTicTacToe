@@ -10,6 +10,9 @@ import UIKit
 
 class GameView: UIView {
     
+    // view delegate
+    weak var viewDelegate: GameViewController?
+    
     var squareViews = [UIView]()
     var gridDrawn = false
     var gameState: GameState? {
@@ -43,6 +46,7 @@ class GameView: UIView {
     
     func userDidTapGameView(touch: UIEvent) {
         println("Received touch: \(touch)")
+        viewDelegate?.userDidTapGameView(touch)
     }
     
     // MARK: gameboard drawing functions
@@ -105,8 +109,6 @@ class GameView: UIView {
         
         gridDrawn = true
     }
-    
-
     
     func drawGameSquare(pos: GameSquarePos, asPlayer player: Player) {
         

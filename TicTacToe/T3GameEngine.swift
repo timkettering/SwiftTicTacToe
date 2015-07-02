@@ -118,9 +118,19 @@ class T3GameEngine {
         // loop through rest of collection
         for i in 0 ..< possibleStates.count {
             
+            // if we strictly compare on value (10 or -10, a scenario becomes possible where this
+            // algorithm will uninutitively pick a move that will *still* result in a win a few moves later on over
+            // a move that will result in an immediate win, so we will be greedy and grab result for states that are
+            // determined to be won over just possible future wins.
             if maxForPlayer == currentTurnPlayer {
-                if possibleStates[minMaxIndex].1 < possibleStates[i].1 {
+                
+                if possibleStates[i].0.winningPlayer == maxForPlayer {
                     minMaxIndex = i
+                    break
+                } else {
+                    if possibleStates[minMaxIndex].1 < possibleStates[i].1 {
+                        minMaxIndex = i
+                    }
                 }
             } else {
                 if possibleStates[minMaxIndex].1 > possibleStates[i].1 {
@@ -129,7 +139,9 @@ class T3GameEngine {
             }
         }
         
-        return (PlayResult(gameState: availableMoves[minMaxIndex], gameComplete: false, winningPlayer: nil), possibleStates[minMaxIndex].1)
+        var selectedGameState = availableMoves[minMaxIndex]
+        var playResult = PlayResult(gameState: selectedGameState, gameComplete: isGameFinished(selectedGameState), winningPlayer: getWinner(selectedGameState)?.0)
+        return (playResult, possibleStates[minMaxIndex].1)
     }
     
     func scoreForPlayer(gameState: GameState, asPlayer: Player) -> Int {
