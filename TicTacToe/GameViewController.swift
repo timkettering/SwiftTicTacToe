@@ -249,8 +249,17 @@ class GameViewController: UIViewController {
     func doFinishedGame() {
         
         if let winner = gameEngine.getWinner(currentGameState!) {
+            
+            self.imThinkingView.hidden = true
+            self.yourPlayView.hidden = true
+            
             animateWinningPositions(winner.0, positions: winner.1, completion: { (success) -> Void in
-                self.showStartGameView("You Lose!")
+                // take a sec or two to rub defeat in the face of user
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+                    
+                    self.showStartGameView("You Lose!")
+                })
+                
             })
         } else {
             self.showStartGameView("Game Tied!")
