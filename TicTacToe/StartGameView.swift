@@ -10,6 +10,8 @@ import UIKit
 
 class StartGameView: UIView {
     
+    let LIGHT_YELLOW = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 102.0/255.0, alpha: 1.0)
+    
     var topic: String? {
         didSet {
             titleLabel.text = self.topic
@@ -19,8 +21,8 @@ class StartGameView: UIView {
     var titleLabel = UILabel()
     var messageLabel = UILabel()
     
-    var computerFirstBtn = UIButton()
-    var playerFirstBtn = UIButton()
+    var computerFirstBtn = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+    var playerFirstBtn = UIButton.buttonWithType(UIButtonType.System) as! UIButton
     
     var viewsBucket = [String:UIView]()
     
@@ -30,13 +32,6 @@ class StartGameView: UIView {
         
         super.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
-        
-//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
-//        let blurView = UIVisualEffectView(effect: blurEffect)
-//        blurView.setTranslatesAutoresizingMaskIntoConstraints(false)
-//        self.addSubview(blurView)
-//        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[blurView]|", options: nil, metrics: nil, views: ["blurView": blurView]))
-//        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[blurView]|", options: nil, metrics: nil, views: ["blurView": blurView]))
         
         let containerView = UIView()
         containerView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -50,15 +45,15 @@ class StartGameView: UIView {
         titleLabel.text = topic
         titleLabel.textAlignment = NSTextAlignment.Center
         titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 40.0)
+        titleLabel.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 33.0)
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         containerView.addSubview(titleLabel)
         
         viewsBucket["titleLabel"] = titleLabel
         
         computerFirstBtn.setTitle("Computer Plays First", forState: UIControlState.Normal)
-        computerFirstBtn.titleLabel?.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 30.0)
-        computerFirstBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        computerFirstBtn.titleLabel?.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 24.0)
+        computerFirstBtn.setTitleColor(LIGHT_YELLOW, forState: UIControlState.Normal)
         computerFirstBtn.addTarget(self, action: Selector("userWantsComputerToGoFirst"), forControlEvents: UIControlEvents.TouchUpInside)
         computerFirstBtn.setTranslatesAutoresizingMaskIntoConstraints(false)
         containerView.addSubview(computerFirstBtn)
@@ -66,8 +61,8 @@ class StartGameView: UIView {
         viewsBucket["computerFirstBtn"] = computerFirstBtn
         
         playerFirstBtn.setTitle("Player Plays First", forState: UIControlState.Normal)
-        playerFirstBtn.titleLabel?.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 30.0)
-        playerFirstBtn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        playerFirstBtn.titleLabel?.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 24.0)
+        playerFirstBtn.setTitleColor(LIGHT_YELLOW, forState: UIControlState.Normal)
         playerFirstBtn.addTarget(self, action: Selector("userWantsToGoFirst"), forControlEvents: UIControlEvents.TouchUpInside)
         playerFirstBtn.setTranslatesAutoresizingMaskIntoConstraints(false)
         containerView.addSubview(playerFirstBtn)

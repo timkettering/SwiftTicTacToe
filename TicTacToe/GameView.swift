@@ -42,10 +42,10 @@ class GameSquareView: UIView {
         if let p = player {
             
             if p == .X && oldValue == "" {
-                viewLabel.text = "X"
+                viewLabel.text = Player.X.description
                 self.animatePlayerSymbolBeingPlaced()
             } else if p == .O && oldValue == "" {
-                viewLabel.text = "O"
+                viewLabel.text = Player.O.description
                 self.animatePlayerSymbolBeingPlaced()
             }
             

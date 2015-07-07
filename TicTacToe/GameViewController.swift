@@ -10,13 +10,17 @@ import UIKit
 
 enum ApplicationAppearance: String {
     case AppFont = "ShadowsIntoLight"
+    case BackgroundImage = "background.jpg"
 }
+
 
 class GameViewController: UIViewController {
     
     let QUICK_ANIM_DUR = 0.25
     let SLOW_ANIM_DUR = 0.5
     let MESSAGE_FONT = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 22.0)
+
+    let LIGHT_YELLOW = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 102.0/255.0, alpha: 1.0)
     
     var computerPlays = Player.X
     
@@ -27,7 +31,7 @@ class GameViewController: UIViewController {
     var startGameView = StartGameView(frame: CGRectZero)
     var yourPlayView = UILabel()
     var imThinkingView = UILabel()
-    var newGame = UIButton()
+    var newGame = UIButton.buttonWithType(UIButtonType.System) as! UIButton
     
     // views bucket
     var viewsBucket = [String:UIView]()
@@ -70,7 +74,7 @@ class GameViewController: UIViewController {
         //self.view.backgroundColor = UIColor.orangeColor()
         
         // background image
-        let backgroundView = UIImageView(image: UIImage(named: "background.jpg"))
+        let backgroundView = UIImageView(image: UIImage(named: ApplicationAppearance.BackgroundImage.rawValue))
         backgroundView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.view.addSubview(backgroundView)
         
@@ -93,6 +97,7 @@ class GameViewController: UIViewController {
         newGame.setTranslatesAutoresizingMaskIntoConstraints(false)
         newGame.setTitle("New Game", forState: UIControlState.Normal)
         newGame.titleLabel?.font = MESSAGE_FONT
+        newGame.setTitleColor(LIGHT_YELLOW, forState: UIControlState.Normal)
         newGame.addTarget(self, action: Selector("showStartGameView"), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(newGame)
         
@@ -124,7 +129,6 @@ class GameViewController: UIViewController {
         viewsBucket["imThinkingView"] = imThinkingView
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[imThinkingView]-20-|", options: nil, metrics: nil, views: viewsBucket))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[imThinkingView]-20-[gameView]", options: nil, metrics: nil, views: viewsBucket))
-        
         
         // start game view
         startGameView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -188,12 +192,15 @@ class GameViewController: UIViewController {
         
         currentPlayer = Player.X
         
-        self.showGameElements(true)
+        
         UIView.animateWithDuration(SLOW_ANIM_DUR, animations: { () -> Void in
             self.startGameView.alpha = 0.0
         }) { (finished) -> Void in
+            
+            self.showGameElements(true)
+            
             if !playerGoesFirst {
-               self.computerPlaysMove()
+                self.computerPlaysMove()
             }
         }
     }

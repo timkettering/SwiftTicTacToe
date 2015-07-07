@@ -91,8 +91,7 @@
 		2262B77B1B332375008351C6 /* TicTacToe */ = {
 			isa = PBXGroup;
 			children = (
-				220A2F391B4B5EE10044086B /* ShadowsIntoLight.ttf */,
-				220A2F3D1B4BAC720044086B /* background.jpg */,
+				22B13B151B4C20C4003FAC8A /* Assets */,
 				2262B77E1B332375008351C6 /* AppDelegate.swift */,
 				2262B79E1B332674008351C6 /* T3GameEngine.swift */,
 				22C947B31B3B61D700E617AA /* GameState.swift */,
@@ -130,6 +129,15 @@
 				2262B7931B332375008351C6 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		22B13B151B4C20C4003FAC8A /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				220A2F391B4B5EE10044086B /* ShadowsIntoLight.ttf */,
+				220A2F3D1B4BAC720044086B /* background.jpg */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
