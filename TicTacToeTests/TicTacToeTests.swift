@@ -73,27 +73,6 @@ class TicTacToeTests: XCTestCase {
         }
     }
     
-    func testPlayManyGames2() {
-        
-        // play game with game engine as both players.  if functionality is correct,
-        // all games should always end in a draw.  value is set to 10 to allow for quicker
-        // test run but a large number should be tested
-        for i in 0 ..< 10 {
-            var gs = GameState()
-            var player = Player.O
-            while true {
-                let result = gameEngine.playNextMove(gs, asPlayer: player)
-                if result.gameComplete {
-                    XCTAssertTrue(result.winningPlayer == nil, "A player has won the game! Should not happen.")
-                    break
-                } else {
-                    gs = result.gameState!
-                    player = player.getOpponent()
-                }
-            }
-        }
-    }
-    
     func testFinishedState() {
     
         var gs = GameState()
@@ -157,18 +136,6 @@ class TicTacToeTests: XCTestCase {
         XCTAssertTrue(playResult.gameState?.getPlayerForPosition(GameSquarePos(row: 0, col: 1)) == Player.X, "Player X did not take winning move.")
     }
     
-    func testMiniMaxScenario4() {
-        
-        var gs = GameState()
-        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.X)
-        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.X)
-        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 0), asPlayer: Player.O)
-        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 2), asPlayer: Player.O)
-        XCTAssertEqual(gs.totalMoves, 4, "Incorrect total moves reported.")
-        var playResult = gameEngine.playNextMove(gs, asPlayer: Player.O)
-        XCTAssertTrue(playResult.gameState?.getPlayerForPosition(GameSquarePos(row: 2, col: 1)) == Player.O, "Player O did not take winning move.")
-    }
-    
     /**
     Learned something very interesting about minimax - you can give it a theoretical gameboard state
     where the player can immediately move to claim victory, but due to how the algo works, the
@@ -192,14 +159,14 @@ class TicTacToeTests: XCTestCase {
     func testMiniMaxScenario6() {
         
         var gs = GameState()
-        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.O)
-        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 1), asPlayer: Player.O)
-        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 1), asPlayer: Player.O)
-        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.X)
-        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 1, col: 2), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 0), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 1), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 2, col: 1), asPlayer: Player.X)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 0, col: 2), asPlayer: Player.O)
+        gs = gameEngine.setSquare(gs, pos: GameSquarePos(row: 1, col: 2), asPlayer: Player.O)
         XCTAssertEqual(gs.totalMoves, 5, "Incorrect total moves reported.")
-        var playResult = gameEngine.playNextMove(gs, asPlayer: Player.X)
-        XCTAssertTrue(playResult.gameState?.getPlayerForPosition(GameSquarePos(row: 2, col: 2)) == Player.X, "Player X did not take winning move.")
+        var playResult = gameEngine.playNextMove(gs, asPlayer: Player.O)
+        XCTAssertTrue(playResult.gameState?.getPlayerForPosition(GameSquarePos(row: 2, col: 2)) == Player.O, "Player O did not take winning move.")
     }
     
     func testEndGameStatesXWins() {

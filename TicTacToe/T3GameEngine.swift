@@ -50,7 +50,7 @@ class T3GameEngine {
     */
     func playNextMove(gameState: GameState, asPlayer player: Player) -> PlayResult {
         
-        if(!canPlayerPlayNext(gameState, player: player)) {
+        if(getPlayerToPlayNext(gameState) != player) {
             // crash hard, we wont deal w/ edge cases in this excercise
             println("Invalid gameState, player cannot play next.")
             exit(1)
@@ -159,13 +159,13 @@ class T3GameEngine {
     }
     
     /**
-    Attempts to play a move as a given player.  Will return `GameState` if the move
-    is legal and the game is not in an ended state.  Nil otherwise.
+    Sets square for gameState.  This does no rule checking.  Can overwrite player position, etc.
     */
     func setSquare(gameState: GameState, pos: GameSquarePos, asPlayer player: Player) -> GameState {
         
         var newSquares = gameState.squares
-        newSquares[GameSquarePos.getArrayPosForGameSquarePos(pos)] = player
+        let arrayPos = GameSquarePos.getArrayPosForGameSquarePos(pos)
+        newSquares[arrayPos] = player
         var gs = GameState(squares: newSquares)
         return gs
     }
@@ -178,7 +178,8 @@ class T3GameEngine {
         
         // if the basic math adds up, and that both players have the same amount of moves (or +1)
         if unplayed + xCount + oCount == (DEFAULT_GAMEBOARD_SQUARES) {
-            if (abs(xCount - oCount) > 1) {
+            let diff = xCount - oCount
+            if diff < 0 || diff > 1 {
                 return false
             } else {
                 return true
@@ -188,22 +189,19 @@ class T3GameEngine {
         }
     }
     
-    func canPlayerPlayNext(gameState: GameState, player: Player) -> Bool {
+    
+    func getPlayerToPlayNext(gameState: GameState) -> Player? {
         
-        var xCount = gameState.xPositions.count
-        var oCount = gameState.oPositions.count
-        
-        // increment based on
-        if player == Player.X {
-            xCount++
-        } else {
-            oCount++
+        if !isValidGameState(gameState) {
+            return nil
         }
         
-        if (abs(xCount - oCount) > 1) {
-            return false
+        var diff = gameState.xPositions.count - gameState.oPositions.count
+        
+        if diff == 0 {
+            return Player.X
         } else {
-            return true
+            return Player.O
         }
     }
     

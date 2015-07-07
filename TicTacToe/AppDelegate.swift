@@ -19,6 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
         
+        for family in UIFont.familyNames() {
+            println("Family: \(family)")
+            for name in UIFont.fontNamesForFamilyName(family as! String) {
+                println("Names: \(name)")
+            }
+        }
+        
         return true
     }
 

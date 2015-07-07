@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220A2F361B4AE4610044086B /* StartGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220A2F351B4AE4610044086B /* StartGameView.swift */; };
+		220A2F3A1B4B5EE10044086B /* ShadowsIntoLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 220A2F391B4B5EE10044086B /* ShadowsIntoLight.ttf */; };
+		220A2F3B1B4B60290044086B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2262B7821B332375008351C6 /* Main.storyboard */; };
+		220A2F3C1B4B60590044086B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2262B7871B332375008351C6 /* LaunchScreen.xib */; };
+		220A2F3E1B4BAC720044086B /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 220A2F3D1B4BAC720044086B /* background.jpg */; };
 		2262B77F1B332375008351C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B77E1B332375008351C6 /* AppDelegate.swift */; };
 		2262B7811B332375008351C6 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B7801B332375008351C6 /* GameViewController.swift */; };
-		2262B7841B332375008351C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2262B7821B332375008351C6 /* Main.storyboard */; };
 		2262B7861B332375008351C6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2262B7851B332375008351C6 /* Images.xcassets */; };
-		2262B7891B332375008351C6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2262B7871B332375008351C6 /* LaunchScreen.xib */; };
 		2262B7951B332375008351C6 /* TicTacToeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B7941B332375008351C6 /* TicTacToeTests.swift */; };
 		2262B79F1B332674008351C6 /* T3GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B79E1B332674008351C6 /* T3GameEngine.swift */; };
 		2262B7A11B333D29008351C6 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B7A01B333D29008351C6 /* GameView.swift */; };
@@ -31,6 +34,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		220A2F351B4AE4610044086B /* StartGameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartGameView.swift; sourceTree = "<group>"; };
+		220A2F391B4B5EE10044086B /* ShadowsIntoLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ShadowsIntoLight.ttf; sourceTree = "<group>"; };
+		220A2F3D1B4BAC720044086B /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 		2262B7791B332375008351C6 /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2262B77D1B332375008351C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2262B77E1B332375008351C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,10 +91,13 @@
 		2262B77B1B332375008351C6 /* TicTacToe */ = {
 			isa = PBXGroup;
 			children = (
+				220A2F391B4B5EE10044086B /* ShadowsIntoLight.ttf */,
+				220A2F3D1B4BAC720044086B /* background.jpg */,
 				2262B77E1B332375008351C6 /* AppDelegate.swift */,
 				2262B79E1B332674008351C6 /* T3GameEngine.swift */,
 				22C947B31B3B61D700E617AA /* GameState.swift */,
 				2262B7801B332375008351C6 /* GameViewController.swift */,
+				220A2F351B4AE4610044086B /* StartGameView.swift */,
 				2262B7A01B333D29008351C6 /* GameView.swift */,
 				2262B7821B332375008351C6 /* Main.storyboard */,
 				2262B7871B332375008351C6 /* LaunchScreen.xib */,
@@ -202,9 +211,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2262B7841B332375008351C6 /* Main.storyboard in Resources */,
-				2262B7891B332375008351C6 /* LaunchScreen.xib in Resources */,
+				220A2F3C1B4B60590044086B /* LaunchScreen.xib in Resources */,
+				220A2F3E1B4BAC720044086B /* background.jpg in Resources */,
+				220A2F3B1B4B60290044086B /* Main.storyboard in Resources */,
 				2262B7861B332375008351C6 /* Images.xcassets in Resources */,
+				220A2F3A1B4B5EE10044086B /* ShadowsIntoLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2262B7811B332375008351C6 /* GameViewController.swift in Sources */,
+				220A2F361B4AE4610044086B /* StartGameView.swift in Sources */,
 				2262B79F1B332674008351C6 /* T3GameEngine.swift in Sources */,
 				22C947B41B3B61D700E617AA /* GameState.swift in Sources */,
 				2262B7A11B333D29008351C6 /* GameView.swift in Sources */,
@@ -360,6 +372,7 @@
 				INFOPLIST_FILE = TicTacToe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -370,6 +383,7 @@
 				INFOPLIST_FILE = TicTacToe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
