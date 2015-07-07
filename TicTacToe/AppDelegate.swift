@@ -18,14 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-        
-        for family in UIFont.familyNames() {
-            println("Family: \(family)")
-            for name in UIFont.fontNamesForFamilyName(family as! String) {
-                println("Names: \(name)")
-            }
-        }
-        
         return true
     }
 
