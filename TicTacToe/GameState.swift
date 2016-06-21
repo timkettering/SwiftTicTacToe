@@ -14,7 +14,7 @@ let DEFAULT_GAMEBOARD_SIZE: Int = 3
 let DEFAULT_GAMEBOARD_SQUARES: Int = DEFAULT_GAMEBOARD_SIZE * DEFAULT_GAMEBOARD_SIZE
 let LEGAL_WINNING_LINES = (DEFAULT_GAMEBOARD_SIZE * 2) + 2
 
-enum Player: Printable {
+enum Player: CustomStringConvertible {
     case X
     case O
     func getOpponent() -> Player {
@@ -38,7 +38,7 @@ struct GameSquarePos {
     }
 }
 
-struct GameState: Printable {
+struct GameState: CustomStringConvertible {
     
     let squares: [Player?]
     var unplayedPositions = [GameSquarePos]()

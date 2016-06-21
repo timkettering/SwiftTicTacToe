@@ -27,7 +27,7 @@ class GameSquareView: UIView {
         updatePlayerSymbol()
         
         // tap recognizer
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("userDidTapGameSquare:"))
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(GameSquareView.userDidTapGameSquare(_:)))
         self.addGestureRecognizer(tapRecognizer)
     }
     
@@ -37,7 +37,7 @@ class GameSquareView: UIView {
     
     func updatePlayerSymbol() {
 
-        var oldValue = viewLabel.text
+        let oldValue = viewLabel.text
         
         if let p = player {
             
@@ -91,11 +91,11 @@ class GameSquareView: UIView {
         viewLabel.textColor = UIColor.whiteColor()
         viewLabel.sizeToFit()
         viewLabel.textAlignment = NSTextAlignment.Center
-        viewLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        viewLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(viewLabel)
         
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: nil, metrics: nil, views: ["view":viewLabel]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: nil, metrics: nil, views: ["view":viewLabel]))
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: [], metrics: nil, views: ["view":viewLabel]))
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: [], metrics: nil, views: ["view":viewLabel]))
     }
     
     func userDidTapGameSquare(touch: UITouch) {
@@ -199,7 +199,7 @@ class GameView: UIView {
             let pos = GameSquarePos.getGameSquareForArrayPos(i)
             let squareView = GameSquareView(squarePos: pos, player: nil)
             squareView.delegate = self
-            squareView.setTranslatesAutoresizingMaskIntoConstraints(false)
+            squareView.translatesAutoresizingMaskIntoConstraints = false
             
             let widthMultiplier:CGFloat = CGFloat((pos.col * 2) + 1) / CGFloat(DEFAULT_GAMEBOARD_SIZE * 2)
             let heightMultiplier:CGFloat = CGFloat((pos.row * 2) + 1) / CGFloat(DEFAULT_GAMEBOARD_SIZE * 2)
@@ -246,7 +246,7 @@ class GameView: UIView {
         for pos in positions {
             let squareView = squareViews[GameSquarePos.getArrayPosForGameSquarePos(pos)]
             squareView.animateWinningSquare({ (success) -> Void in
-                count--
+                count = count - 1
                 if count == 0 {
                     completion(true)
                 }

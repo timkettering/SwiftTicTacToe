@@ -31,7 +31,7 @@ class GameViewController: UIViewController {
     var startGameView = StartGameView(frame: CGRectZero)
     var yourPlayView = UILabel()
     var imThinkingView = UILabel()
-    var newGame = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+    var newGame = UIButton(type: UIButtonType.System)
     
     // views bucket
     var viewsBucket = [String:UIView]()
@@ -57,7 +57,7 @@ class GameViewController: UIViewController {
     var isGameFinished = false
     var lastPlay: PlayResult? {
         didSet {
-            if let lp = self.lastPlay {
+            if self.lastPlay != nil {
                 self.currentGameState = self.lastPlay?.gameState
                 
                 if self.lastPlay?.gameComplete == true {
@@ -75,70 +75,70 @@ class GameViewController: UIViewController {
         
         // background image
         let backgroundView = UIImageView(image: UIImage(named: ApplicationAppearance.BackgroundImage.rawValue))
-        backgroundView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(backgroundView)
         
         viewsBucket["backgroundView"] = backgroundView
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[backgroundView]|", options: nil, metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[backgroundView]|", options: nil, metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[backgroundView]|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[backgroundView]|", options: [], metrics: nil, views: viewsBucket))
         
         // game view
         gameView.viewDelegate = self
-        gameView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        gameView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(gameView)
         
         // apply constraints
         viewsBucket["gameView"] = gameView
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[gameView]-20-|", options: nil, metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[gameView]-20-|", options: [], metrics: nil, views: viewsBucket))
         self.view.addConstraint(NSLayoutConstraint(item: gameView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: gameView, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 0.0))
         self.view.addConstraint(NSLayoutConstraint(item: gameView, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0.0))
         
         // add in restart game view, make hidden too
-        newGame.setTranslatesAutoresizingMaskIntoConstraints(false)
+        newGame.translatesAutoresizingMaskIntoConstraints = false
         newGame.setTitle("New Game", forState: UIControlState.Normal)
         newGame.titleLabel?.font = MESSAGE_FONT
         newGame.setTitleColor(LIGHT_YELLOW, forState: UIControlState.Normal)
-        newGame.addTarget(self, action: Selector("showStartGameView"), forControlEvents: UIControlEvents.TouchUpInside)
+        newGame.addTarget(self, action: #selector(GameViewController.showStartGameView as (GameViewController) -> () -> ()), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(newGame)
         
         viewsBucket["newGame"] = newGame
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[newGame]-20-|", options: nil, metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[gameView]-40-[newGame(==30)]", options: nil, metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[newGame]-20-|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[gameView]-40-[newGame(==30)]", options: [], metrics: nil, views: viewsBucket))
         
         // your play view
         yourPlayView.text = "I await your play..."
         yourPlayView.font = MESSAGE_FONT
         yourPlayView.textColor = UIColor.whiteColor()
-        yourPlayView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        yourPlayView.translatesAutoresizingMaskIntoConstraints = false
         yourPlayView.alpha = 0.0
         self.view.addSubview(yourPlayView)
         
         viewsBucket["yourPlayView"] = yourPlayView
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[yourPlayView]", options: nil, metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[yourPlayView]-20-[gameView]", options: nil, metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[yourPlayView]", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[yourPlayView]-20-[gameView]", options: [], metrics: nil, views: viewsBucket))
         
         // im thinking view
         imThinkingView.text = "I'm thinking!"
         imThinkingView.font = MESSAGE_FONT
         imThinkingView.textColor = UIColor.whiteColor()
-        imThinkingView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        imThinkingView.translatesAutoresizingMaskIntoConstraints = false
         imThinkingView.textAlignment = NSTextAlignment.Right
         imThinkingView.alpha = 0.0
         self.view.addSubview(imThinkingView)
         
         viewsBucket["imThinkingView"] = imThinkingView
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[imThinkingView]-20-|", options: nil, metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[imThinkingView]-20-[gameView]", options: nil, metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[imThinkingView]-20-|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[imThinkingView]-20-[gameView]", options: [], metrics: nil, views: viewsBucket))
         
         // start game view
-        startGameView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        startGameView.translatesAutoresizingMaskIntoConstraints = false
         startGameView.delegate = self
         startGameView.alpha = 0.0
         self.view.addSubview(startGameView)
         
         viewsBucket["startGameView"] = startGameView
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[startGameView]|", options: nil, metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[startGameView]|", options: nil, metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[startGameView]|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[startGameView]|", options: [], metrics: nil, views: viewsBucket))
         
         self.showGameElements(false)
         self.showStartGameView("Play A Game!")

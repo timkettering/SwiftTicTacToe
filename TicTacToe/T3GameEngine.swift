@@ -52,7 +52,7 @@ class T3GameEngine {
         
         if(getPlayerToPlayNext(gameState) != player) {
             // crash hard, we wont deal w/ edge cases in this excercise
-            println("Invalid gameState, player cannot play next.")
+            print("Invalid gameState, player cannot play next.")
             exit(1)
         }
         
@@ -76,7 +76,7 @@ class T3GameEngine {
             // depending on the first player's move.  this will reduce the amount of minimaxing we have to do
             
             // check if first player grabbed center
-            if let firstMove = gameState.getPlayerForPosition(GameSquarePos(row: 1, col: 1)) {
+            if gameState.getPlayerForPosition(GameSquarePos(row: 1, col: 1)) != nil {
                 // take a corner 
                 let newGameState = setSquare(gameState, pos: GameSquarePos(row: 2, col: 2), asPlayer: player)
                 return PlayResult(gameState: newGameState, gameComplete: false, winningPlayer: nil)
@@ -102,7 +102,7 @@ class T3GameEngine {
         
         // arrays for scorekeeping
         var availableMoves = [GameState]()
-        var possibleStates = [PlayResult, Int]()
+        var possibleStates = [(PlayResult, Int)]()
         
         // find highest score out of all remaining moves
         for unplayed in gameState.unplayedPositions {
@@ -139,8 +139,8 @@ class T3GameEngine {
             }
         }
         
-        var selectedGameState = availableMoves[minMaxIndex]
-        var playResult = PlayResult(gameState: selectedGameState, gameComplete: isGameFinished(selectedGameState), winningPlayer: getWinner(selectedGameState)?.0)
+        let selectedGameState = availableMoves[minMaxIndex]
+        let playResult = PlayResult(gameState: selectedGameState, gameComplete: isGameFinished(selectedGameState), winningPlayer: getWinner(selectedGameState)?.0)
         return (playResult, possibleStates[minMaxIndex].1)
     }
     
@@ -166,7 +166,7 @@ class T3GameEngine {
         var newSquares = gameState.squares
         let arrayPos = GameSquarePos.getArrayPosForGameSquarePos(pos)
         newSquares[arrayPos] = player
-        var gs = GameState(squares: newSquares)
+        let gs = GameState(squares: newSquares)
         return gs
     }
     
@@ -196,7 +196,7 @@ class T3GameEngine {
             return nil
         }
         
-        var diff = gameState.xPositions.count - gameState.oPositions.count
+        let diff = gameState.xPositions.count - gameState.oPositions.count
         
         if diff == 0 {
             return Player.X
