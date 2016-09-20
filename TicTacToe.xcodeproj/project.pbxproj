@@ -19,7 +19,6 @@
 		2262B79F1B332674008351C6 /* T3GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B79E1B332674008351C6 /* T3GameEngine.swift */; };
 		2262B7A11B333D29008351C6 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B7A01B333D29008351C6 /* GameView.swift */; };
 		2296C5BC1D19A21300C5227C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2296C5BA1D19A21300C5227C /* LICENSE */; };
-		2296C5BD1D19A21300C5227C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2296C5BB1D19A21300C5227C /* README.md */; };
 		22C947B21B3B4C2E00E617AA /* T3GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B79E1B332674008351C6 /* T3GameEngine.swift */; };
 		22C947B41B3B61D700E617AA /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C947B31B3B61D700E617AA /* GameState.swift */; };
 		22C947B51B3B62B600E617AA /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C947B31B3B61D700E617AA /* GameState.swift */; };
@@ -256,7 +255,6 @@
 				2262B7811B332375008351C6 /* GameViewController.swift in Sources */,
 				220A2F361B4AE4610044086B /* StartGameView.swift in Sources */,
 				2262B79F1B332674008351C6 /* T3GameEngine.swift in Sources */,
-				2296C5BD1D19A21300C5227C /* README.md in Sources */,
 				22C947B41B3B61D700E617AA /* GameState.swift in Sources */,
 				2262B7A11B333D29008351C6 /* GameView.swift in Sources */,
 				2262B77F1B332375008351C6 /* AppDelegate.swift in Sources */,
@@ -342,7 +340,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -383,7 +381,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -398,11 +396,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 4FZA3S877W;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blackcore.games.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -412,11 +411,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 4FZA3S877W;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blackcore.games.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
