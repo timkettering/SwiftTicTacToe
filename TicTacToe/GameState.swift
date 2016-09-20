@@ -28,10 +28,10 @@ enum Player: CustomStringConvertible {
 struct GameSquarePos {
     var row: Int
     var col: Int
-    static func getArrayPosForGameSquarePos(pos: GameSquarePos) -> Int {
+    static func getArrayPosForGameSquarePos(_ pos: GameSquarePos) -> Int {
         return (pos.row * DEFAULT_GAMEBOARD_SIZE) + pos.col
     }
-    static func getGameSquareForArrayPos(pos: Int) -> GameSquarePos {
+    static func getGameSquareForArrayPos(_ pos: Int) -> GameSquarePos {
         let row = pos / DEFAULT_GAMEBOARD_SIZE
         let col = pos % DEFAULT_GAMEBOARD_SIZE
         return GameSquarePos(row: row, col: col)
@@ -47,7 +47,7 @@ struct GameState: CustomStringConvertible {
     var totalMoves = 0
     
     init() {
-        squares = [Player?](count: DEFAULT_GAMEBOARD_SQUARES, repeatedValue: nil)
+        squares = [Player?](repeating: nil, count: DEFAULT_GAMEBOARD_SQUARES)
         unplayedPositions = getUnplayedPositions()
         xPositions = getPlayerPositions(Player.X)
         oPositions = getPlayerPositions(Player.O)
@@ -62,7 +62,7 @@ struct GameState: CustomStringConvertible {
         totalMoves = xPositions.count + oPositions.count
     }
     
-    private func getUnplayedPositions() -> [GameSquarePos] {
+    fileprivate func getUnplayedPositions() -> [GameSquarePos] {
         var unplayedPositions = [GameSquarePos]()
         for i in 0 ..< DEFAULT_GAMEBOARD_SQUARES {
             if squares[i] == nil {
@@ -72,11 +72,11 @@ struct GameState: CustomStringConvertible {
         return unplayedPositions
     }
     
-    func getPlayerForPosition(gameSquarePos: GameSquarePos) -> Player? {
+    func getPlayerForPosition(_ gameSquarePos: GameSquarePos) -> Player? {
         return squares[GameSquarePos.getArrayPosForGameSquarePos(gameSquarePos)]
     }
     
-    private func getPlayerPositions(player: Player) -> [GameSquarePos] {
+    fileprivate func getPlayerPositions(_ player: Player) -> [GameSquarePos] {
         var playerPositions = [GameSquarePos]()
         for i in 0 ..< DEFAULT_GAMEBOARD_SQUARES {
             if squares[i] == player {

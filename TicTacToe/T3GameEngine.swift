@@ -9,9 +9,9 @@
 import Foundation
 
 enum GameScoring: Int {
-    case PLAYER_WIN = 10
-    case OPPONENT_WIN = -10
-    case UNDECIDED = 0
+    case player_WIN = 10
+    case opponent_WIN = -10
+    case undecided = 0
 }
 
 struct PlayResult {
@@ -48,7 +48,7 @@ class T3GameEngine {
         Returns a Gameboard object with the next move populated, or nil
         if the board is in an invalid state
     */
-    func playNextMove(gameState: GameState, asPlayer player: Player) -> PlayResult {
+    func playNextMove(_ gameState: GameState, asPlayer player: Player) -> PlayResult {
         
         if(getPlayerToPlayNext(gameState) != player) {
             // crash hard, we wont deal w/ edge cases in this excercise
@@ -90,7 +90,7 @@ class T3GameEngine {
         }
     }
     
-    func miniMaxBoard(gameState: GameState, maxForPlayer: Player, currentTurnPlayer: Player) -> (PlayResult, Int) {
+    func miniMaxBoard(_ gameState: GameState, maxForPlayer: Player, currentTurnPlayer: Player) -> (PlayResult, Int) {
         
         if isGameFinished(gameState) {
             if let winner = getWinner(gameState) {
@@ -144,24 +144,24 @@ class T3GameEngine {
         return (playResult, possibleStates[minMaxIndex].1)
     }
     
-    func scoreForPlayer(gameState: GameState, asPlayer: Player) -> Int {
+    func scoreForPlayer(_ gameState: GameState, asPlayer: Player) -> Int {
         
         if let winner = getWinner(gameState) {
             if winner.0 == asPlayer {
-                return GameScoring.PLAYER_WIN.rawValue
+                return GameScoring.player_WIN.rawValue
             } else {
-                return GameScoring.OPPONENT_WIN.rawValue
+                return GameScoring.opponent_WIN.rawValue
             }
         } else {
             // no winner, return zero.
-            return GameScoring.UNDECIDED.rawValue
+            return GameScoring.undecided.rawValue
         }
     }
     
     /**
     Sets square for gameState.  This does no rule checking.  Can overwrite player position, etc.
     */
-    func setSquare(gameState: GameState, pos: GameSquarePos, asPlayer player: Player) -> GameState {
+    func setSquare(_ gameState: GameState, pos: GameSquarePos, asPlayer player: Player) -> GameState {
         
         var newSquares = gameState.squares
         let arrayPos = GameSquarePos.getArrayPosForGameSquarePos(pos)
@@ -170,7 +170,7 @@ class T3GameEngine {
         return gs
     }
     
-    func isValidGameState(gameState: GameState) -> Bool {
+    func isValidGameState(_ gameState: GameState) -> Bool {
         
         let unplayed = gameState.unplayedPositions.count
         let xCount = gameState.xPositions.count
@@ -190,7 +190,7 @@ class T3GameEngine {
     }
     
     
-    func getPlayerToPlayNext(gameState: GameState) -> Player? {
+    func getPlayerToPlayNext(_ gameState: GameState) -> Player? {
         
         if !isValidGameState(gameState) {
             return nil
@@ -205,7 +205,7 @@ class T3GameEngine {
         }
     }
     
-    func isGameFinished(gameState: GameState) -> Bool {
+    func isGameFinished(_ gameState: GameState) -> Bool {
         
         // game is finished if totalMoves == totalSquares, or
         // there is a winner
@@ -216,7 +216,7 @@ class T3GameEngine {
         }
     }
     
-    func getWinner(gameState: GameState) -> (Player, [GameSquarePos])? {
+    func getWinner(_ gameState: GameState) -> (Player, [GameSquarePos])? {
         
         // check for win on all legal lines
         for line in winningLines {
@@ -229,7 +229,7 @@ class T3GameEngine {
     }
     
     // private/internal functions
-    private func winnerOnGivenLine(gameState: GameState, line: [GameSquarePos]) -> (Player, [GameSquarePos])? {
+    fileprivate func winnerOnGivenLine(_ gameState: GameState, line: [GameSquarePos]) -> (Player, [GameSquarePos])? {
         
         var lastPlayer: Player?
         for pos in line {
@@ -249,11 +249,11 @@ class T3GameEngine {
         return (lastPlayer!, line)
     }
     
-    private func initAllWinningLines() {
+    fileprivate func initAllWinningLines() {
         winningLines = getHorizLineArrays() + getVertLineArrays() + getDiagonalLineArrays()
     }
     
-    private func getHorizLineArrays() -> [[GameSquarePos]] {
+    fileprivate func getHorizLineArrays() -> [[GameSquarePos]] {
         
         var arrays = [[GameSquarePos]]()
         
@@ -268,7 +268,7 @@ class T3GameEngine {
     }
     
     
-    private func getVertLineArrays() -> [[GameSquarePos]] {
+    fileprivate func getVertLineArrays() -> [[GameSquarePos]] {
         
         var arrays = [[GameSquarePos]]()
         
@@ -282,7 +282,7 @@ class T3GameEngine {
         return arrays
     }
     
-    private func getDiagonalLineArrays() -> [[GameSquarePos]] {
+    fileprivate func getDiagonalLineArrays() -> [[GameSquarePos]] {
         
         var arrays = [[GameSquarePos]]()
         

@@ -18,6 +18,8 @@
 		2262B7951B332375008351C6 /* TicTacToeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B7941B332375008351C6 /* TicTacToeTests.swift */; };
 		2262B79F1B332674008351C6 /* T3GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B79E1B332674008351C6 /* T3GameEngine.swift */; };
 		2262B7A11B333D29008351C6 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B7A01B333D29008351C6 /* GameView.swift */; };
+		2296C5BC1D19A21300C5227C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2296C5BA1D19A21300C5227C /* LICENSE */; };
+		2296C5BD1D19A21300C5227C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2296C5BB1D19A21300C5227C /* README.md */; };
 		22C947B21B3B4C2E00E617AA /* T3GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2262B79E1B332674008351C6 /* T3GameEngine.swift */; };
 		22C947B41B3B61D700E617AA /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C947B31B3B61D700E617AA /* GameState.swift */; };
 		22C947B51B3B62B600E617AA /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C947B31B3B61D700E617AA /* GameState.swift */; };
@@ -49,6 +51,8 @@
 		2262B7941B332375008351C6 /* TicTacToeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeTests.swift; sourceTree = "<group>"; };
 		2262B79E1B332674008351C6 /* T3GameEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T3GameEngine.swift; sourceTree = "<group>"; };
 		2262B7A01B333D29008351C6 /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		2296C5BA1D19A21300C5227C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = SOURCE_ROOT; };
+		2296C5BB1D19A21300C5227C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		22C947B31B3B61D700E617AA /* GameState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,6 +80,8 @@
 				2262B77B1B332375008351C6 /* TicTacToe */,
 				2262B7911B332375008351C6 /* TicTacToeTests */,
 				2262B77A1B332375008351C6 /* Products */,
+				2296C5BB1D19A21300C5227C /* README.md */,
+				2296C5BA1D19A21300C5227C /* LICENSE */,
 			);
 			sourceTree = "<group>";
 		};
@@ -185,13 +191,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				TargetAttributes = {
 					2262B7781B332375008351C6 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 4FZA3S877W;
+						LastSwiftMigration = 0800;
 					};
 					2262B78D1B332375008351C6 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 4FZA3S877W;
+						LastSwiftMigration = 0800;
 						TestTargetID = 2262B7781B332375008351C6;
 					};
 				};
@@ -220,6 +230,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2296C5BC1D19A21300C5227C /* LICENSE in Resources */,
 				220A2F3C1B4B60590044086B /* LaunchScreen.xib in Resources */,
 				220A2F3E1B4BAC720044086B /* background.jpg in Resources */,
 				220A2F3B1B4B60290044086B /* Main.storyboard in Resources */,
@@ -245,6 +256,7 @@
 				2262B7811B332375008351C6 /* GameViewController.swift in Sources */,
 				220A2F361B4AE4610044086B /* StartGameView.swift in Sources */,
 				2262B79F1B332674008351C6 /* T3GameEngine.swift in Sources */,
+				2296C5BD1D19A21300C5227C /* README.md in Sources */,
 				22C947B41B3B61D700E617AA /* GameState.swift in Sources */,
 				2262B7A11B333D29008351C6 /* GameView.swift in Sources */,
 				2262B77F1B332375008351C6 /* AppDelegate.swift in Sources */,
@@ -304,8 +316,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -350,8 +364,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -370,6 +386,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -379,10 +396,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4FZA3S877W;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blackcore.games.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -391,10 +410,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 4FZA3S877W;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blackcore.games.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -403,6 +424,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 4FZA3S877W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -415,6 +437,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blackcore.games.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TicTacToe.app/TicTacToe";
 			};
 			name = Debug;
@@ -423,6 +446,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 4FZA3S877W;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -431,6 +455,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blackcore.games.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TicTacToe.app/TicTacToe";
 			};
 			name = Release;

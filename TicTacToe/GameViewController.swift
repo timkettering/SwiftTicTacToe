@@ -27,11 +27,11 @@ class GameViewController: UIViewController {
     var gameEngine = T3GameEngine()
     
     // views
-    var gameView = GameView(frame: CGRectZero)
-    var startGameView = StartGameView(frame: CGRectZero)
+    var gameView = GameView(frame: CGRect.zero)
+    var startGameView = StartGameView(frame: CGRect.zero)
     var yourPlayView = UILabel()
     var imThinkingView = UILabel()
-    var newGame = UIButton(type: UIButtonType.System)
+    var newGame = UIButton(type: UIButtonType.system)
     
     // views bucket
     var viewsBucket = [String:UIView]()
@@ -79,8 +79,8 @@ class GameViewController: UIViewController {
         self.view.addSubview(backgroundView)
         
         viewsBucket["backgroundView"] = backgroundView
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[backgroundView]|", options: [], metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[backgroundView]|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[backgroundView]|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[backgroundView]|", options: [], metrics: nil, views: viewsBucket))
         
         // game view
         gameView.viewDelegate = self
@@ -89,46 +89,46 @@ class GameViewController: UIViewController {
         
         // apply constraints
         viewsBucket["gameView"] = gameView
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[gameView]-20-|", options: [], metrics: nil, views: viewsBucket))
-        self.view.addConstraint(NSLayoutConstraint(item: gameView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: gameView, attribute: NSLayoutAttribute.Width, multiplier: 1.0, constant: 0.0))
-        self.view.addConstraint(NSLayoutConstraint(item: gameView, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.CenterY, multiplier: 1.0, constant: 0.0))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[gameView]-20-|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraint(NSLayoutConstraint(item: gameView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: gameView, attribute: NSLayoutAttribute.width, multiplier: 1.0, constant: 0.0))
+        self.view.addConstraint(NSLayoutConstraint(item: gameView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0.0))
         
         // add in restart game view, make hidden too
         newGame.translatesAutoresizingMaskIntoConstraints = false
-        newGame.setTitle("New Game", forState: UIControlState.Normal)
+        newGame.setTitle("New Game", for: UIControlState())
         newGame.titleLabel?.font = MESSAGE_FONT
-        newGame.setTitleColor(LIGHT_YELLOW, forState: UIControlState.Normal)
-        newGame.addTarget(self, action: #selector(GameViewController.showStartGameView as (GameViewController) -> () -> ()), forControlEvents: UIControlEvents.TouchUpInside)
+        newGame.setTitleColor(LIGHT_YELLOW, for: UIControlState())
+        newGame.addTarget(self, action: #selector(GameViewController.showStartGameView as (GameViewController) -> () -> ()), for: UIControlEvents.touchUpInside)
         self.view.addSubview(newGame)
         
         viewsBucket["newGame"] = newGame
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[newGame]-20-|", options: [], metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[gameView]-40-[newGame(==30)]", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[newGame]-20-|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[gameView]-40-[newGame(==30)]", options: [], metrics: nil, views: viewsBucket))
         
         // your play view
         yourPlayView.text = "I await your play..."
         yourPlayView.font = MESSAGE_FONT
-        yourPlayView.textColor = UIColor.whiteColor()
+        yourPlayView.textColor = UIColor.white
         yourPlayView.translatesAutoresizingMaskIntoConstraints = false
         yourPlayView.alpha = 0.0
         self.view.addSubview(yourPlayView)
         
         viewsBucket["yourPlayView"] = yourPlayView
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[yourPlayView]", options: [], metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[yourPlayView]-20-[gameView]", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[yourPlayView]", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[yourPlayView]-20-[gameView]", options: [], metrics: nil, views: viewsBucket))
         
         // im thinking view
         imThinkingView.text = "I'm thinking!"
         imThinkingView.font = MESSAGE_FONT
-        imThinkingView.textColor = UIColor.whiteColor()
+        imThinkingView.textColor = UIColor.white
         imThinkingView.translatesAutoresizingMaskIntoConstraints = false
-        imThinkingView.textAlignment = NSTextAlignment.Right
+        imThinkingView.textAlignment = NSTextAlignment.right
         imThinkingView.alpha = 0.0
         self.view.addSubview(imThinkingView)
         
         viewsBucket["imThinkingView"] = imThinkingView
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[imThinkingView]-20-|", options: [], metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[imThinkingView]-20-[gameView]", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[imThinkingView]-20-|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[imThinkingView]-20-[gameView]", options: [], metrics: nil, views: viewsBucket))
         
         // start game view
         startGameView.translatesAutoresizingMaskIntoConstraints = false
@@ -137,17 +137,17 @@ class GameViewController: UIViewController {
         self.view.addSubview(startGameView)
         
         viewsBucket["startGameView"] = startGameView
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[startGameView]|", options: [], metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[startGameView]|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[startGameView]|", options: [], metrics: nil, views: viewsBucket))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[startGameView]|", options: [], metrics: nil, views: viewsBucket))
         
         self.showGameElements(false)
         self.showStartGameView("Play A Game!")
     }
 
-    func showYourPlayView(doShow: Bool) {
+    func showYourPlayView(_ doShow: Bool) {
         
 
-        UIView.animateWithDuration(QUICK_ANIM_DUR, animations: { () -> Void in
+        UIView.animate(withDuration: QUICK_ANIM_DUR, animations: { () -> Void in
             
             if doShow {
                 self.yourPlayView.alpha = 1.0
@@ -160,7 +160,7 @@ class GameViewController: UIViewController {
         })
     }
     
-    func animateWinningPositions(player: Player, positions: [GameSquarePos], completion: (Bool) -> Void) {
+    func animateWinningPositions(_ player: Player, positions: [GameSquarePos], completion: @escaping (Bool) -> Void) {
         
         self.gameView.animateWinningPositions(player, positions: positions) { (success) -> Void in
             completion(true)
@@ -171,18 +171,18 @@ class GameViewController: UIViewController {
         showStartGameView("Start New Game")
     }
     
-    func showStartGameView(topic: String?) {
+    func showStartGameView(_ topic: String?) {
         
         self.showGameElements(false)
-        UIView.animateWithDuration(SLOW_ANIM_DUR, animations: { () -> Void in
+        UIView.animate(withDuration: SLOW_ANIM_DUR, animations: { () -> Void in
             self.startGameView.topic = topic
             self.startGameView.alpha = 1.0
-        }) { (finished) -> Void in
+        }, completion: { (finished) -> Void in
             self.resetGame()
-        }
+        }) 
     }
     
-    func startNewGame(playerGoesFirst: Bool) {
+    func startNewGame(_ playerGoesFirst: Bool) {
         
         if playerGoesFirst {
             self.computerPlays = Player.O
@@ -193,20 +193,20 @@ class GameViewController: UIViewController {
         currentPlayer = Player.X
         
         
-        UIView.animateWithDuration(SLOW_ANIM_DUR, animations: { () -> Void in
+        UIView.animate(withDuration: SLOW_ANIM_DUR, animations: { () -> Void in
             self.startGameView.alpha = 0.0
-        }) { (finished) -> Void in
+        }, completion: { (finished) -> Void in
             
             self.showGameElements(true)
             
             if !playerGoesFirst {
                 self.computerPlaysMove()
             }
-        }
+        }) 
     }
     
     // MARK: Touch Up Events
-    func userDidTapGameSquare(pos: GameSquarePos) {
+    func userDidTapGameSquare(_ pos: GameSquarePos) {
         
         // first check if player is current player
         if currentPlayer == computerPlays.getOpponent() {
@@ -226,12 +226,12 @@ class GameViewController: UIViewController {
         // else ignore
     }
     
-    func showGameElements(doShow: Bool) {
+    func showGameElements(_ doShow: Bool) {
         
-        yourPlayView.hidden = !doShow
-        imThinkingView.hidden = !doShow
-        gameView.hidden = !doShow
-        newGame.hidden = !doShow
+        yourPlayView.isHidden = !doShow
+        imThinkingView.isHidden = !doShow
+        gameView.isHidden = !doShow
+        newGame.isHidden = !doShow
     }
     
     // MARK: Game events
@@ -246,7 +246,7 @@ class GameViewController: UIViewController {
         if !isGameFinished {
             
             // fake a bit of time to think
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
                 self.lastPlay = self.gameEngine.playNextMove(self.currentGameState!, asPlayer: self.currentPlayer)
             })
         }
@@ -257,12 +257,12 @@ class GameViewController: UIViewController {
         
         if let winner = gameEngine.getWinner(currentGameState!) {
             
-            self.imThinkingView.hidden = true
-            self.yourPlayView.hidden = true
+            self.imThinkingView.isHidden = true
+            self.yourPlayView.isHidden = true
             
             animateWinningPositions(winner.0, positions: winner.1, completion: { (success) -> Void in
                 // take a sec or two to rub defeat in the face of user
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
                     
                     self.showStartGameView("You Lose!")
                 })
@@ -279,8 +279,8 @@ class GameViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
 }
 

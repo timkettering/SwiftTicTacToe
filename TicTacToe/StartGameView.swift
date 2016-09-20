@@ -21,8 +21,8 @@ class StartGameView: UIView {
     var titleLabel = UILabel()
     var messageLabel = UILabel()
     
-    var computerFirstBtn = UIButton(type: UIButtonType.System)
-    var playerFirstBtn = UIButton(type: UIButtonType.System)
+    var computerFirstBtn = UIButton(type: UIButtonType.system)
+    var playerFirstBtn = UIButton(type: UIButtonType.system)
     
     var viewsBucket = [String:UIView]()
     
@@ -31,50 +31,50 @@ class StartGameView: UIView {
     override init(frame: CGRect) {
         
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.backgroundColor = UIColor.blackColor()
+        containerView.backgroundColor = UIColor.black
         containerView.alpha = 0.8
         self.addSubview(containerView)
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-150-[containerView]-150-|", options: [], metrics: nil, views: ["containerView": containerView]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-30-[containerView]-30-|", options: [], metrics: nil, views: ["containerView": containerView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-150-[containerView]-150-|", options: [], metrics: nil, views: ["containerView": containerView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-30-[containerView]-30-|", options: [], metrics: nil, views: ["containerView": containerView]))
         
         // draw labels
         titleLabel.text = topic
-        titleLabel.textAlignment = NSTextAlignment.Center
-        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textAlignment = NSTextAlignment.center
+        titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 33.0)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(titleLabel)
         
         viewsBucket["titleLabel"] = titleLabel
         
-        computerFirstBtn.setTitle("Computer Plays First", forState: UIControlState.Normal)
+        computerFirstBtn.setTitle("Computer Plays First", for: UIControlState())
         computerFirstBtn.titleLabel?.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 24.0)
-        computerFirstBtn.setTitleColor(LIGHT_YELLOW, forState: UIControlState.Normal)
-        computerFirstBtn.addTarget(self, action: #selector(StartGameView.userWantsComputerToGoFirst), forControlEvents: UIControlEvents.TouchUpInside)
+        computerFirstBtn.setTitleColor(LIGHT_YELLOW, for: UIControlState())
+        computerFirstBtn.addTarget(self, action: #selector(StartGameView.userWantsComputerToGoFirst), for: UIControlEvents.touchUpInside)
         computerFirstBtn.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(computerFirstBtn)
         
         viewsBucket["computerFirstBtn"] = computerFirstBtn
         
-        playerFirstBtn.setTitle("Player Plays First", forState: UIControlState.Normal)
+        playerFirstBtn.setTitle("Player Plays First", for: UIControlState())
         playerFirstBtn.titleLabel?.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 24.0)
-        playerFirstBtn.setTitleColor(LIGHT_YELLOW, forState: UIControlState.Normal)
-        playerFirstBtn.addTarget(self, action: #selector(StartGameView.userWantsToGoFirst), forControlEvents: UIControlEvents.TouchUpInside)
+        playerFirstBtn.setTitleColor(LIGHT_YELLOW, for: UIControlState())
+        playerFirstBtn.addTarget(self, action: #selector(StartGameView.userWantsToGoFirst), for: UIControlEvents.touchUpInside)
         playerFirstBtn.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(playerFirstBtn)
         
         viewsBucket["playerFirstBtn"] = playerFirstBtn
         
         // do layout
-        containerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[titleLabel]-|", options: [], metrics: nil, views: viewsBucket))
-        containerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[computerFirstBtn]-|", options: [], metrics: nil, views: viewsBucket))
-        containerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[playerFirstBtn]-|", options: [], metrics: nil, views: viewsBucket))
-        containerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[titleLabel]", options: [], metrics: nil, views: viewsBucket))
-        containerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[computerFirstBtn]-15-[playerFirstBtn]-|", options: [], metrics: nil, views: viewsBucket))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[titleLabel]-|", options: [], metrics: nil, views: viewsBucket))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[computerFirstBtn]-|", options: [], metrics: nil, views: viewsBucket))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[playerFirstBtn]-|", options: [], metrics: nil, views: viewsBucket))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[titleLabel]", options: [], metrics: nil, views: viewsBucket))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[computerFirstBtn]-15-[playerFirstBtn]-|", options: [], metrics: nil, views: viewsBucket))
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -91,7 +91,7 @@ class StartGameView: UIView {
     }
     
     // MARK: Delegate Methods
-    func startNewGameWith(playerGoesFirst: Bool) {
+    func startNewGameWith(_ playerGoesFirst: Bool) {
         delegate?.startNewGame(playerGoesFirst)
     }
 }

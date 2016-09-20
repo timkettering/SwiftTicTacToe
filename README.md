@@ -1,4 +1,4 @@
 # SwiftTicTacToe
-iOS / Swift implementation of a tic-tac-toe game
+Implemented as a technical excercise.  This is a 100% Swift implementation of an Tic-Tac-Toe game for iOS.
 
-Implemented as a technical excercise.  Makes use of minimax game engine with a few short cuts.  
+The game engine is a greedy min-max algorithm that attempts to find the shortest winning path. 
