@@ -82,11 +82,11 @@ class StartGameView: UIView {
     }
     
     // MARK: Button Target Events
-    func userWantsComputerToGoFirst() {
+    @objc func userWantsComputerToGoFirst() {
         self.startNewGameWith(false)
     }
     
-    func userWantsToGoFirst() {
+    @objc func userWantsToGoFirst() {
         self.startNewGameWith(true)
     }
     

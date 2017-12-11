@@ -167,7 +167,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    func showStartGameView() {
+    @objc func showStartGameView() {
         showStartGameView("Start New Game")
     }
     

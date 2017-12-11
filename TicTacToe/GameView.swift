@@ -98,7 +98,7 @@ class GameSquareView: UIView {
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: [], metrics: nil, views: ["view":viewLabel]))
     }
     
-    func userDidTapGameSquare(_ touch: UITouch) {
+    @objc func userDidTapGameSquare(_ touch: UITouch) {
         delegate?.userDidTapGameSquare(self.gameSquarePos)
     }
 }
