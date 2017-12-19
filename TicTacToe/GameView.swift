@@ -121,8 +121,8 @@ class GameView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clear
         
+        self.backgroundColor = UIColor.clear
         self.drawGameSquares()
     }
 
@@ -146,7 +146,7 @@ class GameView: UIView {
     
     func drawGameGrid() {
         
-        if gridDrawn {
+        guard gridDrawn == false else {
             return
         }
         
@@ -160,16 +160,16 @@ class GameView: UIView {
         line1.close()
         line1.lineWidth = GRID_LINE_WIDTH
         UIColor.white.setStroke()
-        line1.stroke()
+        line1.stroke(with: .colorDodge, alpha: 0.5)
         
         // draw line 2
         let line2 = UIBezierPath()
-        line2.move(to: CGPoint(x: 0, y: getGridIncrement(rectWidth, parts: 3, multiplier: 2)))
-        line2.addLine(to: CGPoint(x: rectWidth, y: getGridIncrement(rectWidth, parts: 3, multiplier: 2)))
+        line2.move(to: CGPoint(x: 0, y: getGridIncrement(rectHeight, parts: 3, multiplier: 2)))
+        line2.addLine(to: CGPoint(x: rectWidth, y: getGridIncrement(rectHeight, parts: 3, multiplier: 2)))
         line2.close()
         line2.lineWidth = GRID_LINE_WIDTH
         UIColor.white.setStroke()
-        line2.stroke()
+        line2.stroke(with: .colorDodge, alpha: 0.5)
         
         // draw line 3
         let line3 = UIBezierPath()
@@ -178,7 +178,7 @@ class GameView: UIView {
         line3.close()
         line3.lineWidth = GRID_LINE_WIDTH
         UIColor.white.setStroke()
-        line3.stroke()
+        line3.stroke(with: .colorDodge, alpha: 0.5)
         
         // draw line 4
         let line4 = UIBezierPath()
@@ -187,7 +187,7 @@ class GameView: UIView {
         line4.close()
         line4.lineWidth = GRID_LINE_WIDTH
         UIColor.white.setStroke()
-        line4.stroke()
+        line4.stroke(with: .colorDodge, alpha: 0.5)
         
         gridDrawn = true
     }
