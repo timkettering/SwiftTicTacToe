@@ -39,13 +39,12 @@ struct GameSquarePos {
 }
 
 struct GameState: CustomStringConvertible {
-    
     let squares: [Player?]
     var unplayedPositions = [GameSquarePos]()
     var xPositions = [GameSquarePos]()
     var oPositions = [GameSquarePos]()
     var totalMoves = 0
-    
+
     init() {
         squares = [Player?](repeating: nil, count: DEFAULT_GAMEBOARD_SQUARES)
         unplayedPositions = getUnplayedPositions()
@@ -53,7 +52,7 @@ struct GameState: CustomStringConvertible {
         oPositions = getPlayerPositions(Player.O)
         totalMoves = xPositions.count + oPositions.count
     }
-    
+
     init(squares sq: [Player?]) {
         squares = sq
         unplayedPositions = getUnplayedPositions()
@@ -61,47 +60,43 @@ struct GameState: CustomStringConvertible {
         oPositions = getPlayerPositions(Player.O)
         totalMoves = xPositions.count + oPositions.count
     }
-    
+
     fileprivate func getUnplayedPositions() -> [GameSquarePos] {
         var unplayedPositions = [GameSquarePos]()
-        for i in 0 ..< DEFAULT_GAMEBOARD_SQUARES {
-            if squares[i] == nil {
-                unplayedPositions.append(GameSquarePos.getGameSquareForArrayPos(i))
-            }
+        for i in 0 ..< DEFAULT_GAMEBOARD_SQUARES where squares[i] == nil {
+            unplayedPositions.append(GameSquarePos.getGameSquareForArrayPos(i))
         }
         return unplayedPositions
     }
-    
+
     func getPlayerForPosition(_ gameSquarePos: GameSquarePos) -> Player? {
         return squares[GameSquarePos.getArrayPosForGameSquarePos(gameSquarePos)]
     }
-    
+
     fileprivate func getPlayerPositions(_ player: Player) -> [GameSquarePos] {
         var playerPositions = [GameSquarePos]()
-        for i in 0 ..< DEFAULT_GAMEBOARD_SQUARES {
-            if squares[i] == player {
-                playerPositions.append(GameSquarePos.getGameSquareForArrayPos(i))
-            }
+        for i in 0 ..< DEFAULT_GAMEBOARD_SQUARES where squares[i] == player {
+            playerPositions.append(GameSquarePos.getGameSquareForArrayPos(i))
         }
         return playerPositions
     }
-    
+
     var description: String {
         var desc = "\n"
         for i in 0 ..< DEFAULT_GAMEBOARD_SIZE {
             desc += "|"
             for j in 0 ..< DEFAULT_GAMEBOARD_SIZE {
-                
                 if j > 0 {
                     desc += ","
                 }
-                
+
                 if let player = getPlayerForPosition(GameSquarePos(row: i, col: j)) {
                     desc += player.description
                 } else {
                     desc += "_"
                 }
             }
+
             desc += "|\n"
         }
         return desc

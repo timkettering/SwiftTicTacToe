@@ -1,0 +1,61 @@
+disabled_rules:
+  - identifier_name
+  - opening_brace
+  #- todo
+  - block_based_kvo
+  - inert_defer
+  - line_length # re-add
+  #- function_body_length # re-add 
+  - file_length # re-add
+opt_in_rules:
+  - conditional_returns_on_newline
+  - private_outlet
+  - sorted_imports
+  - explicit_self
+cyclomatic_complexity:
+  ignores_case_statements: true
+trailing_comma:
+  mandatory_comma: true
+line_length:
+  - 110
+type_body_length:
+  - 350
+type_name:
+  min_length: 3
+  max_length: 50
+private_over_fileprivate:
+  validate_extensions: true
+deployment_target:
+  iOS_deployment_target: 10.3
+excluded:
+  - Carthage
+  - Third-Party
+
+custom_rules:
+  extra_newlines_braces:
+    name: "Extra newlines before closing braces"
+    regex: '\}\n\n\s*\}$'
+  closure_arg_parens:
+    name: "Closure argument no parens"
+    regex: '\{\s*(?:\[[^\]]+\])\s*\([^:]+\)\s*in'
+  class_modifier:
+    name: "use static instead of class"
+    regex: '^ *(public|internal|fileprivate|private)? *class +(func|var|let) +'
+  class_func:
+    name: "class func usage"
+    regex: '^\s*class\s+func\s+'
+  closing_braces_without_whitespace:
+    name: "Single newline after closing brace"
+    regex: '^[ ]*\}\n[ ]*[^} \n\.\)#]'
+    match_kinds:
+      - identifier
+      - typeidentifier
+  closing_bracket_without_whitespace:
+    name: "Single newline after closing bracket"
+    regex: '^[ ]*\]\n[ ]*[^]} \n\.\)#]'
+  newline_after_brace:
+    name: "Opening braces shouldn't have empty lines under them"
+    regex: '\{\n\n'
+  newline_before_brace:
+    name: "Closing braces shouldn't have empty lines before them"
+    regex: '\n\n\}'
