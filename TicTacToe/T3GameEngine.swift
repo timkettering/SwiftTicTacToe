@@ -20,6 +20,11 @@ struct PlayResult {
     var winningPlayer: Player?
 }
 
+enum GameEndResult {
+    case win
+    case draw
+}
+
 /**
     The game engine for tic-tac-toe.  Responsible for determining the game moves.
     Original explaination/pseudo-code of min-maxing taken from http://neverstopbuilding.com/minimax
@@ -37,11 +42,9 @@ struct PlayResult {
     and reduces housekeeping.
 */
 class T3GameEngine {
-    
-    var winningLines = [[GameSquarePos]]()
-    
+    private var winningLines = [[GameSquarePos]]()
     init () {
-        initAllWinningLines()
+        self.initAllWinningLines()
     }
     
     /*
@@ -49,14 +52,13 @@ class T3GameEngine {
         if the board is in an invalid state
     */
     func playNextMove(_ gameState: GameState, asPlayer player: Player) -> PlayResult {
-        
-        if(getPlayerToPlayNext(gameState) != player) {
+        guard self.getPlayerToPlayNext(gameState) == player else {
             // crash hard, we wont deal w/ edge cases in this excercise
             print("Invalid gameState, player cannot play next.")
             exit(1)
         }
         
-        if isGameFinished(gameState) {
+        if self.isGameFinished(gameState) {
             if let winner = getWinner(gameState) {
                 return PlayResult(gameState: gameState, gameComplete: true, winningPlayer: winner.0)
             } else {
@@ -117,13 +119,11 @@ class T3GameEngine {
         
         // loop through rest of collection
         for i in 0 ..< possibleStates.count {
-            
             // if we strictly compare on value (10 or -10, a scenario becomes possible where this
             // algorithm will uninutitively pick a move that will *still* result in a win a few moves later on over
             // a move that will result in an immediate win, so we will be greedy and grab result for states that are
             // determined to be won over just possible future wins.
             if maxForPlayer == currentTurnPlayer {
-                
                 if possibleStates[i].0.winningPlayer == maxForPlayer {
                     minMaxIndex = i
                     break
@@ -145,7 +145,6 @@ class T3GameEngine {
     }
     
     func scoreForPlayer(_ gameState: GameState, asPlayer: Player) -> Int {
-        
         if let winner = getWinner(gameState) {
             if winner.0 == asPlayer {
                 return GameScoring.player_WIN.rawValue
@@ -162,7 +161,6 @@ class T3GameEngine {
     Sets square for gameState.  This does no rule checking.  Can overwrite player position, etc.
     */
     func setSquare(_ gameState: GameState, pos: GameSquarePos, asPlayer player: Player) -> GameState {
-        
         var newSquares = gameState.squares
         let arrayPos = GameSquarePos.getArrayPosForGameSquarePos(pos)
         newSquares[arrayPos] = player
@@ -171,7 +169,6 @@ class T3GameEngine {
     }
     
     func isValidGameState(_ gameState: GameState) -> Bool {
-        
         let unplayed = gameState.unplayedPositions.count
         let xCount = gameState.xPositions.count
         let oCount = gameState.oPositions.count
@@ -191,7 +188,6 @@ class T3GameEngine {
     
     
     func getPlayerToPlayNext(_ gameState: GameState) -> Player? {
-        
         if !isValidGameState(gameState) {
             return nil
         }
@@ -206,7 +202,6 @@ class T3GameEngine {
     }
     
     func isGameFinished(_ gameState: GameState) -> Bool {
-        
         // game is finished if totalMoves == totalSquares, or
         // there is a winner
         if getWinner(gameState) != nil || (gameState.unplayedPositions.count == 0) {
@@ -217,7 +212,6 @@ class T3GameEngine {
     }
     
     func getWinner(_ gameState: GameState) -> (Player, [GameSquarePos])? {
-        
         // check for win on all legal lines
         for line in winningLines {
             if let winner = self.winnerOnGivenLine(gameState, line: line) {

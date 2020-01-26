@@ -96,16 +96,11 @@
 		2262B77B1B332375008351C6 /* TicTacToe */ = {
 			isa = PBXGroup;
 			children = (
-				22B13B151B4C20C4003FAC8A /* Assets */,
-				2262B77E1B332375008351C6 /* AppDelegate.swift */,
-				2262B79E1B332674008351C6 /* T3GameEngine.swift */,
-				22C947B31B3B61D700E617AA /* GameState.swift */,
-				2262B7801B332375008351C6 /* GameViewController.swift */,
-				220A2F351B4AE4610044086B /* StartGameView.swift */,
-				2262B7A01B333D29008351C6 /* GameView.swift */,
-				2262B7821B332375008351C6 /* Main.storyboard */,
-				2262B7871B332375008351C6 /* LaunchScreen.xib */,
 				2262B7851B332375008351C6 /* Images.xcassets */,
+				22B13B151B4C20C4003FAC8A /* Assets */,
+				22E8837A1FE9AA0C004FA3B1 /* GameEngine */,
+				22E8837B1FE9AA1E004FA3B1 /* Views */,
+				2262B77E1B332375008351C6 /* AppDelegate.swift */,
 				2262B77C1B332375008351C6 /* Supporting Files */,
 			);
 			path = TicTacToe;
@@ -143,6 +138,27 @@
 				220A2F3D1B4BAC720044086B /* background.jpg */,
 			);
 			name = Assets;
+			sourceTree = "<group>";
+		};
+		22E8837A1FE9AA0C004FA3B1 /* GameEngine */ = {
+			isa = PBXGroup;
+			children = (
+				2262B79E1B332674008351C6 /* T3GameEngine.swift */,
+				22C947B31B3B61D700E617AA /* GameState.swift */,
+			);
+			name = GameEngine;
+			sourceTree = "<group>";
+		};
+		22E8837B1FE9AA1E004FA3B1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2262B7801B332375008351C6 /* GameViewController.swift */,
+				220A2F351B4AE4610044086B /* StartGameView.swift */,
+				2262B7A01B333D29008351C6 /* GameView.swift */,
+				2262B7821B332375008351C6 /* Main.storyboard */,
+				2262B7871B332375008351C6 /* LaunchScreen.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,24 +206,24 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					2262B7781B332375008351C6 = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 4FZA3S877W;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1130;
 					};
 					2262B78D1B332375008351C6 = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 4FZA3S877W;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1130;
 						TestTargetID = 2262B7781B332375008351C6;
 					};
 				};
 			};
 			buildConfigurationList = 2262B7741B332375008351C6 /* Build configuration list for PBXProject "TicTacToe" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -305,6 +321,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -313,12 +330,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -359,6 +378,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -367,12 +387,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -406,7 +428,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				DEVELOPMENT_TEAM = 4FZA3S877W;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -414,8 +435,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blackcore.games.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -423,7 +444,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				DEVELOPMENT_TEAM = 4FZA3S877W;
 				INFOPLIST_FILE = TicTacToe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -431,8 +451,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blackcore.games.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -454,7 +474,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blackcore.games.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TicTacToe.app/TicTacToe";
 			};
 			name = Debug;
@@ -473,7 +493,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blackcore.games.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TicTacToe.app/TicTacToe";
 			};
 			name = Release;

@@ -62,7 +62,7 @@ class GameSquareView: UIView {
         viewLabel.alpha = 0.1
         
         self.viewLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        UIView.animateKeyframes(withDuration: 0.25, delay: 0.0, options: (UIViewKeyframeAnimationOptions.calculationModeCubicPaced), animations: { () -> Void in
+        UIView.animateKeyframes(withDuration: 0.25, delay: 0.0, options: (UIView.KeyframeAnimationOptions.calculationModeCubicPaced), animations: { () -> Void in
             
             self.viewLabel.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             self.viewLabel.alpha = 1.0
@@ -74,7 +74,7 @@ class GameSquareView: UIView {
     func animateWinningSquare(_ completion: @escaping (Bool) -> Void) {
         
         let origTransformIdentity = viewLabel.transform
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIView.AnimationOptions.curveEaseOut, animations: { () -> Void in
             
             self.viewLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
             self.viewLabel.textColor = UIColor.green
@@ -207,11 +207,11 @@ class GameView: UIView {
             self.addSubview(squareView)
             
             // set constraints
-            let centerXCons = NSLayoutConstraint(item: squareView, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: widthMultiplier, constant: 0.0)
-            let centerYCons = NSLayoutConstraint(item: squareView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: heightMultiplier, constant: 0.0)
+            let centerXCons = NSLayoutConstraint(item: squareView, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.right, multiplier: widthMultiplier, constant: 0.0)
+            let centerYCons = NSLayoutConstraint(item: squareView, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: heightMultiplier, constant: 0.0)
             
-            let widthCons = NSLayoutConstraint(item: squareView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.width, multiplier: 0.3, constant: 0.0)
-            let heightCons = NSLayoutConstraint(item: squareView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.height, multiplier: 0.3, constant: 0.0)
+            let widthCons = NSLayoutConstraint(item: squareView, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.width, multiplier: 0.3, constant: 0.0)
+            let heightCons = NSLayoutConstraint(item: squareView, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.height, multiplier: 0.3, constant: 0.0)
             
             self.addConstraint(centerXCons)
             self.addConstraint(centerYCons)

@@ -21,8 +21,8 @@ class StartGameView: UIView {
     var titleLabel = UILabel()
     var messageLabel = UILabel()
     
-    var computerFirstBtn = UIButton(type: UIButtonType.system)
-    var playerFirstBtn = UIButton(type: UIButtonType.system)
+    var computerFirstBtn = UIButton(type: UIButton.ButtonType.system)
+    var playerFirstBtn = UIButton(type: UIButton.ButtonType.system)
     
     var viewsBucket = [String:UIView]()
     
@@ -51,19 +51,19 @@ class StartGameView: UIView {
         
         viewsBucket["titleLabel"] = titleLabel
         
-        computerFirstBtn.setTitle("Computer Plays First", for: UIControlState())
+        computerFirstBtn.setTitle("Computer Plays First", for: UIControl.State())
         computerFirstBtn.titleLabel?.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 24.0)
-        computerFirstBtn.setTitleColor(LIGHT_YELLOW, for: UIControlState())
-        computerFirstBtn.addTarget(self, action: #selector(StartGameView.userWantsComputerToGoFirst), for: UIControlEvents.touchUpInside)
+        computerFirstBtn.setTitleColor(LIGHT_YELLOW, for: UIControl.State())
+        computerFirstBtn.addTarget(self, action: #selector(StartGameView.userWantsComputerToGoFirst), for: UIControl.Event.touchUpInside)
         computerFirstBtn.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(computerFirstBtn)
         
         viewsBucket["computerFirstBtn"] = computerFirstBtn
         
-        playerFirstBtn.setTitle("Player Plays First", for: UIControlState())
+        playerFirstBtn.setTitle("Player Plays First", for: UIControl.State())
         playerFirstBtn.titleLabel?.font = UIFont(name: ApplicationAppearance.AppFont.rawValue, size: 24.0)
-        playerFirstBtn.setTitleColor(LIGHT_YELLOW, for: UIControlState())
-        playerFirstBtn.addTarget(self, action: #selector(StartGameView.userWantsToGoFirst), for: UIControlEvents.touchUpInside)
+        playerFirstBtn.setTitleColor(LIGHT_YELLOW, for: UIControl.State())
+        playerFirstBtn.addTarget(self, action: #selector(StartGameView.userWantsToGoFirst), for: UIControl.Event.touchUpInside)
         playerFirstBtn.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(playerFirstBtn)
         

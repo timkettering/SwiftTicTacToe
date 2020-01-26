@@ -31,7 +31,7 @@ class GameViewController: UIViewController {
     var startGameView = StartGameView(frame: CGRect.zero)
     var yourPlayView = UILabel()
     var imThinkingView = UILabel()
-    var newGame = UIButton(type: UIButtonType.system)
+    var newGame = UIButton(type: UIButton.ButtonType.system)
     
     // views bucket
     var viewsBucket = [String:UIView]()
@@ -78,9 +78,8 @@ class GameViewController: UIViewController {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(backgroundView)
         
-        viewsBucket["backgroundView"] = backgroundView
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[backgroundView]|", options: [], metrics: nil, views: viewsBucket))
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[backgroundView]|", options: [], metrics: nil, views: viewsBucket))
+        backgroundView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
+        backgroundView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         
         // game view
         gameView.viewDelegate = self
@@ -89,16 +88,17 @@ class GameViewController: UIViewController {
         
         // apply constraints
         viewsBucket["gameView"] = gameView
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[gameView]-20-|", options: [], metrics: nil, views: viewsBucket))
-        self.view.addConstraint(NSLayoutConstraint(item: gameView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: gameView, attribute: NSLayoutAttribute.width, multiplier: 1.0, constant: 0.0))
-        self.view.addConstraint(NSLayoutConstraint(item: gameView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0.0))
+        gameView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8).isActive = true
+        gameView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
+        gameView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        gameView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         
         // add in restart game view, make hidden too
         newGame.translatesAutoresizingMaskIntoConstraints = false
-        newGame.setTitle("New Game", for: UIControlState())
+        newGame.setTitle("New Game", for: UIControl.State())
         newGame.titleLabel?.font = MESSAGE_FONT
-        newGame.setTitleColor(LIGHT_YELLOW, for: UIControlState())
-        newGame.addTarget(self, action: #selector(GameViewController.showStartGameView as (GameViewController) -> () -> ()), for: UIControlEvents.touchUpInside)
+        newGame.setTitleColor(LIGHT_YELLOW, for: UIControl.State())
+        newGame.addTarget(self, action: #selector(GameViewController.showStartGameView as (GameViewController) -> () -> ()), for: UIControl.Event.touchUpInside)
         self.view.addSubview(newGame)
         
         viewsBucket["newGame"] = newGame
